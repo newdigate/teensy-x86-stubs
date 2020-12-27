@@ -25,3 +25,32 @@ add_library(teensy_x86_stubs STATIC
         SD/utility/SdFile.cpp
         SD/utility/SdInfo.h
         SD/utility/SdVolume.cpp)
+
+target_include_directories(teensy_x86_stubs
+		PUBLIC
+		$<INSTALL_INTERFACE:include>
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+		)
+
+install(TARGETS teensy_x86_stubs
+		EXPORT teensy_x86_stubs-export
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+		)
+install(EXPORT teensy_x86_stubs-export
+		FILE
+		teensy_x86_stubsTargets.cmake
+		NAMESPACE
+		teensy_x86_stubs::
+		DESTINATION
+		lib/cmake/teensy_x86_stubs
+		)
+install(FILES
+		${CMAKE_CURRENT_SOURCE_DIR}/Arduino.h
+		${CMAKE_CURRENT_SOURCE_DIR}/hardware_serial.h
+		${CMAKE_CURRENT_SOURCE_DIR}/Teensy/Print.h
+		${CMAKE_CURRENT_SOURCE_DIR}/SD/SD.h
+		DESTINATION "include/teensy_x86_stubs")
+install(FILES
+		${CMAKE_CURRENT_SOURCE_DIR}/cmake/teensy_x86_stubsConfig.cmake
+		DESTINATION "lib/cmake/teensy_x86_stubs" )
