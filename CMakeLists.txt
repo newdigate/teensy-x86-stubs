@@ -32,6 +32,18 @@ target_include_directories(teensy_x86_stubs
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		)
 
+
+
+##
+# copied from: https://gist.github.com/royvandam/3033428
+# Add uninstall target
+# Requirements: Copy the uninstall.cmake file to the appropriate CMAKE_MODULE_PATH.
+#
+
+add_custom_target(uninstall
+		"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake"
+		)
+
 install(TARGETS teensy_x86_stubs
 		EXPORT teensy_x86_stubs-export
 		LIBRARY DESTINATION lib
@@ -53,4 +65,5 @@ install(FILES
 		DESTINATION "include/teensy_x86_stubs")
 install(FILES
 		${CMAKE_CURRENT_SOURCE_DIR}/cmake/teensy_x86_stubsConfig.cmake
+		${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake
 		DESTINATION "lib/cmake/teensy_x86_stubs" )
