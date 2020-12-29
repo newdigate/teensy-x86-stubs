@@ -1,6 +1,12 @@
 # teensy-x86-stubs
 stub classes to allow certain teensy code to be compiled and run on a desktop PC
 
+## Don't Run Unit Tests on the Arduino Device or Emulator https://stackoverflow.com/a/11437456
+includes code from https://github.com/IronSavior/dsm2_tx
+
+# License
+Unless specified in source code file, all code is MIT license.
+
 ### install:
 ``` sh
 git clone https://github.com/newdigate/teensy-x86-stubs.git
