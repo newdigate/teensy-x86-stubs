@@ -1,7 +1,7 @@
 # teensy x86 stubs
-stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
+cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
-### Don't Run Unit Tests on the Arduino Device or Emulator 
+##### Don't Run Unit Tests on the Arduino Device or Emulator 
 * https://stackoverflow.com/a/11437456
 * includes code from https://github.com/IronSavior/dsm2_tx
 
@@ -15,6 +15,7 @@ Unless specified in source code file, all code is MIT license.
 ```
 * To test teensy code accessing an SD card file, we call 
 ``` c++ 
+    char *buffer = "blah blah blah blah blah";
     SD.setSDCardFileData(buffer, strlen(buffer));
 ```
 
@@ -39,6 +40,12 @@ int main(int argc, char **argv){
 
     std::cout << bytesRead << " bytes read: \n" << output;
 }
+```
+##### output
+```
+starting app...
+24 bytes read: 
+blah blah blah blah blah
 ```
 
 ##### CMakelists.txt
