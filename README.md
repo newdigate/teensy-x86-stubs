@@ -8,21 +8,6 @@ stub classes to allow certain teensy code to be compiled and run on a desktop PC
 # License
 Unless specified in source code file, all code is MIT license.
 
-### install:
-``` sh
-git clone https://github.com/newdigate/teensy-x86-stubs.git
-cd teensy-x86-stubs
-mkdir cmake-build-debug
-cd cmake-build-debug
-cmake ..
-sudo make install
-```
-
-### uninstall:
-``` sh
-sudo make uninstall
-```
-
 ### usage:
 ##### main.cpp
 ``` c++
@@ -63,3 +48,20 @@ if (APPLE)
     target_link_libraries(thing -L/usr/local/lib)
 endif()
 ```
+
+
+### install:
+``` sh
+git clone https://github.com/newdigate/teensy-x86-stubs.git
+cd teensy-x86-stubs
+mkdir cmake-build-debug
+cd cmake-build-debug
+cmake ..
+sudo make install
+```
+
+### uninstall:
+``` sh
+sudo make uninstall
+```
+
