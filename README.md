@@ -9,10 +9,10 @@ installable cmake package with stub classes to allow basic teensy code and libra
 ##### cmake uninstaller 
 *  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
 
-## License
+## license
 Unless specified in source code file, all code is MIT license.
 
-## Quick example
+## quick example
 * to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
 ``` c++
     initialize_mock_arduino()
