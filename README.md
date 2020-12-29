@@ -1,14 +1,20 @@
 # teensy-x86-stubs
-stub classes to allow certain teensy code to be compiled and run on a desktop PC
+stub classes to allow basic teensy code and libraries to be compiled and debugged on your desktop PC.
 
 ## Don't Run Unit Tests on the Arduino Device or Emulator 
 * https://stackoverflow.com/a/11437456
 * includes code from https://github.com/IronSavior/dsm2_tx
 
-# License
+## License
 Unless specified in source code file, all code is MIT license.
 
-### usage:
+## Quick example
+* initialize_mock_arduino() will initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning. 
+* To test teensy code accessing an SD card file, we call 
+``` c++ 
+    SD.setSDCardFileData(buffer, strlen(buffer));
+```
+
 ##### main.cpp
 ``` c++
 #include <Arduino.h>
