@@ -23,7 +23,7 @@
  * \file
  * Useful utility functions.
  */
-#include "../../Arduino.h"
+#include "../Arduino.h"
 
 #define NOINLINE __attribute__((noinline,unused))
 #define UNUSEDOK __attribute__((unused))

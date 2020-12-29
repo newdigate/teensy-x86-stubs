@@ -1,2 +1,2 @@
 include(CMakeFindDependencyMacro)
-#include("${CMAKE_CURRENT_LIST_DIR}/SomeLibrariesTargets.cmake")
+include_directories(${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs)

@@ -25,7 +25,7 @@
  */
 #include "Sd2PinMap.h"
 #include "SdInfo.h"
-#include "../../Arduino.h"
+#include "../Arduino.h"
 
 //------------------------------------------------------------------------------
 /** Protect block zero from write if nonzero */
