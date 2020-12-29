@@ -49,6 +49,7 @@ blah blah blah blah blah
 project(thing C CXX)
 
 find_package(teensy_x86_stubs)
+include_directories(${teensy_x86_stubs_INCLUDE_DIR})
 
 add_executable(thing main.cpp)
 
