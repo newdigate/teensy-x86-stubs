@@ -44,7 +44,8 @@ add_executable(thing
 target_link_libraries(thing ${teensy_x86_stubs_LIBRARIES})
 
 if (APPLE)
-    # macOS: /usr/local/lib not a system library directory under CMake: https://gitlab.kitware.com/cmake/cmake/-/issues/19134
+    # macOS: /usr/local/lib not a system library directory under CMake
+    # https://gitlab.kitware.com/cmake/cmake/-/issues/19134
     target_link_libraries(thing -L/usr/local/lib)
 endif()
 ```
