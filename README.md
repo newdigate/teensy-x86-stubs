@@ -9,7 +9,10 @@ stub classes to allow basic teensy code and libraries to be compiled and debugge
 Unless specified in source code file, all code is MIT license.
 
 ## Quick example
-* initialize_mock_arduino() will initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning. 
+* to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
+``` c++
+    initialize_mock_arduino()
+```
 * To test teensy code accessing an SD card file, we call 
 ``` c++ 
     SD.setSDCardFileData(buffer, strlen(buffer));
