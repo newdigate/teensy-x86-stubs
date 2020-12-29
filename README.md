@@ -4,9 +4,6 @@
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
-## license
-Unless specified in source code file, all code is MIT license.
-
 ## quick example
 * to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
 ``` c++
@@ -81,3 +78,7 @@ sudo make uninstall
 
 ##### cmake uninstaller 
 *  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
+
+
+## license
+Unless specified in source code file, all code is MIT license.
