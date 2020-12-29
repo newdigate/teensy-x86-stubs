@@ -1,2 +1,0 @@
-include(CMakeFindDependencyMacro)
-include_directories(${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs)

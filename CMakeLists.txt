@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
-
 project(teensy_x86_stubs C CXX)
+set(teensy_x86_stubs_VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 11)
+
+set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/)
+set(LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs )
 
 set(SOURCE_FILES
 		hardware_serial.cpp
@@ -34,9 +37,20 @@ add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${UTILITY_HEADER_FILE
 
 set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "hardware_serial.h;Arduino.h;Print.h;Printable.h;SD.h")
 
+include(CMakePackageConfigHelpers)
+configure_package_config_file(cmake/teensy_x86_stubs.cmake.in
+		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
+		INSTALL_DESTINATION ${LIB_INSTALL_DIR}/teensy_x86_stubs/cmake
+		PATH_VARS)
+
+write_basic_package_version_file(
+		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
+		VERSION ${teensy_x86_stubs_VERSION}
+		COMPATIBILITY SameMajorVersion )
+
 install(TARGETS teensy_x86_stubs DESTINATION
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+		LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+		ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
 		PUBLIC_HEADER DESTINATION "include/teensy_x86_stubs"
 		)
 
@@ -45,7 +59,8 @@ install(FILES
 		DESTINATION "include/teensy_x86_stubs/utility" )
 
 install(FILES
-		${CMAKE_CURRENT_SOURCE_DIR}/cmake/teensy_x86_stubsConfig.cmake
+		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
+		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
 		${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake
 		DESTINATION "lib/cmake/teensy_x86_stubs" )
 
