@@ -1,9 +1,13 @@
 # teensy x86 stubs
-cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
+installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
+## credits
 ##### Don't Run Unit Tests on the Arduino Device or Emulator 
-* https://stackoverflow.com/a/11437456
-* includes code from https://github.com/IronSavior/dsm2_tx
+* [stackoverflow 11437456](https://stackoverflow.com/a/11437456)
+* includes code from [IronSavior/dsm2_tx](https://github.com/IronSavior/dsm2_tx)
+
+##### cmake uninstaller 
+*  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
 
 ## License
 Unless specified in source code file, all code is MIT license.
@@ -67,7 +71,7 @@ endif()
 ```
 
 
-### install:
+### package installation:
 ``` sh
 git clone https://github.com/newdigate/teensy-x86-stubs.git
 cd teensy-x86-stubs
