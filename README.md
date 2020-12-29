@@ -61,16 +61,9 @@ project(thing C CXX)
 
 find_package(teensy_x86_stubs)
 
-add_executable(thing
-        main.cpp)
+add_executable(thing main.cpp)
 
-target_link_libraries(thing ${teensy_x86_stubs_LIBRARIES})
-
-if (APPLE)
-    # macOS: /usr/local/lib not a system library directory under CMake
-    # https://gitlab.kitware.com/cmake/cmake/-/issues/19134
-    target_link_libraries(thing -L/usr/local/lib)
-endif()
+target_link_libraries(thing ${teensy_x86_stubs_LIBS})
 ```
 
 
