@@ -4,17 +4,6 @@
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
-## credits
-##### Don't Run Unit Tests on the Arduino Device or Emulator 
-* [stackoverflow 11437456](https://stackoverflow.com/a/11437456)
-* includes code from [IronSavior/dsm2_tx](https://github.com/IronSavior/dsm2_tx)
-
-##### cmake uninstaller 
-*  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
-
-## license
-Unless specified in source code file, all code is MIT license.
-
 ## quick example
 * to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
 ``` c++
@@ -60,21 +49,15 @@ blah blah blah blah blah
 project(thing C CXX)
 
 find_package(teensy_x86_stubs)
+include_directories(${teensy_x86_stubs_INCLUDE_DIR})
 
-add_executable(thing
-        main.cpp)
+add_executable(thing main.cpp)
 
-target_link_libraries(thing ${teensy_x86_stubs_LIBRARIES})
-
-if (APPLE)
-    # macOS: /usr/local/lib not a system library directory under CMake
-    # https://gitlab.kitware.com/cmake/cmake/-/issues/19134
-    target_link_libraries(thing -L/usr/local/lib)
-endif()
+target_link_libraries(thing ${teensy_x86_stubs_LIBS})
 ```
 
 
-### package installation:
+## package installation:
 ``` sh
 git clone https://github.com/newdigate/teensy-x86-stubs.git
 cd teensy-x86-stubs
@@ -89,3 +72,14 @@ sudo make install
 sudo make uninstall
 ```
 
+## credits
+##### Don't Run Unit Tests on the Arduino Device or Emulator 
+* [stackoverflow 11437456](https://stackoverflow.com/a/11437456)
+* includes code from [IronSavior/dsm2_tx](https://github.com/IronSavior/dsm2_tx)
+
+##### cmake uninstaller 
+*  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
+
+
+## license
+Unless specified in source code file, all code is MIT license.
