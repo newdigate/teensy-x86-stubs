@@ -2,8 +2,6 @@ name: linux C++ CI
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
     branches: [ master ]
 
   pull_request:
