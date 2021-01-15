@@ -22,7 +22,8 @@ set(HEADER_FILES
 		Arduino.h
 		Print.h
 		Printable.h
-		SD.h)
+		SD.h
+		spi_interrupt.h)
 
 set(UTILITY_HEADER_FILES
 		utility/Sd2Card.h
@@ -35,7 +36,7 @@ set(UTILITY_HEADER_FILES
 
 add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${UTILITY_HEADER_FILES} ${SOURCE_FILES})
 
-set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "hardware_serial.h;Arduino.h;Print.h;Printable.h;SD.h")
+set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(cmake/teensy_x86_stubs.cmake.in
