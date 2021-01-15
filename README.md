@@ -1,7 +1,7 @@
 # teensy x86 stubs
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CMake](https://img.shields.io/badge/project-CMake-brightgreen.svg?label=built%20with&colorA=555555&colorB=8a8fff&logo=)](CMakelists.txt)
-![CMake](https://github.com/newdigate/teensy-x86-stubs/workflows/CMake/badge.svg)
+[![CMake](https://github.com/newdigate/teensy-x86-stubs/workflows/CMake/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions)
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
