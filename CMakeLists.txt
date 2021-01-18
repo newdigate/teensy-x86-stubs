@@ -23,7 +23,8 @@ set(HEADER_FILES
 		Print.h
 		Printable.h
 		SD.h
-		spi_interrupt.h)
+		spi_interrupt.h
+		pins_arduino.h)
 
 set(UTILITY_HEADER_FILES
 		utility/Sd2Card.h
