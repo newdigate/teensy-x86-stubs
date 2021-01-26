@@ -2,6 +2,7 @@
 
 typedef unsigned char byte;
 typedef unsigned short int word;
+typedef bool boolean;
 
 unsigned long millis();
 unsigned long micros();

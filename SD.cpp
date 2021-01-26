@@ -344,16 +344,11 @@ bool SDClass::begin(uint8_t csPin) {
 	Return true if initialization succeeds, false otherwise.
 
    */
-  return card.init(0, csPin) &&
-		 volume.init(card) &&
-		 root.openRoot(volume);
+  return (_sdCardFolderLocation.length() > 0 || (_fileData != NULL && _fileSize > 0)) ;
 }
 
 bool SDClass::begin(uint32_t clock, uint8_t csPin) {
-  return card.init(0, csPin) &&
-		 //card.setSpiClock(clock) &&
-		 volume.init(card) &&
-		 root.openRoot(volume);
+    return (_sdCardFolderLocation.length() > 0 || (_fileData != NULL && _fileSize > 0));
 }
 
 // this little helper is used to traverse paths
