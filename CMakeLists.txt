@@ -8,34 +8,34 @@ set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/)
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs )
 
 set(SOURCE_FILES
-		hardware_serial.cpp
-        Arduino.cpp
-		Print.cpp
-		File.cpp
-		SD.cpp
-		Stream.cpp
-		utility/Sd2Card.cpp
-		utility/SdFile.cpp
-		utility/SdVolume.cpp)
+		src/hardware_serial.cpp
+		src/Arduino.cpp
+		src/Print.cpp
+		src/File.cpp
+		src/SD.cpp
+		src/Stream.cpp
+		src/utility/Sd2Card.cpp
+		src/utility/SdFile.cpp
+		src/utility/SdVolume.cpp)
 
 set(HEADER_FILES
-		hardware_serial.h
-		Arduino.h
-		Print.h
-		Printable.h
-		SD.h
-		spi_interrupt.h
-		pins_arduino.h
-		Stream.h)
+		src/hardware_serial.h
+		src/Arduino.h
+		src/Print.h
+		src/Printable.h
+		src/SD.h
+		src/spi_interrupt.h
+		src/pins_arduino.h
+		src/Stream.h)
 
 set(UTILITY_HEADER_FILES
-		utility/Sd2Card.h
-		utility/Sd2PinMap.h
-		utility/SdFat.h
-		utility/SdFatUtil.h
-		utility/FatStructs.h
-		utility/SdFatmainpage.h
-		utility/SdInfo.h)
+		src/utility/Sd2Card.h
+		src/utility/Sd2PinMap.h
+		src/utility/SdFat.h
+		src/utility/SdFatUtil.h
+		src/utility/FatStructs.h
+		src/utility/SdFatmainpage.h
+		src/utility/SdInfo.h)
 
 add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${UTILITY_HEADER_FILES} ${SOURCE_FILES})
 
@@ -65,7 +65,7 @@ install(FILES
 install(FILES
 		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
 		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
-		${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake
+		cmake/uninstall.cmake
 		DESTINATION "lib/cmake/teensy_x86_stubs" )
 
 ##
@@ -75,5 +75,5 @@ install(FILES
 #
 
 add_custom_target(uninstall
-		"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake"
+		"${CMAKE_COMMAND}" -P "cmake/uninstall.cmake"
 		)
