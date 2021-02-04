@@ -34,7 +34,8 @@ void HardwareSerial::end() {
 
 int HardwareSerial::available(void) {
   //return (!_inputBuffer.isEmpty());
-    return 0;
+    streamsize s = std::cin.rdbuf()->in_avail();
+    return s > 0;
 }
 
 void HardwareSerial::begin(unsigned long, uint8_t) {
@@ -42,11 +43,13 @@ void HardwareSerial::begin(unsigned long, uint8_t) {
 }
 
 int HardwareSerial::peek(void) {
-  return 0;
+  return cin.peek();
 }
 
 int HardwareSerial::read(void) {
-   return 0;
+   char ch[1];
+   cin.read(ch, 1);
+   return ch[0];
 }
 
 int HardwareSerial::availableForWrite(void) {

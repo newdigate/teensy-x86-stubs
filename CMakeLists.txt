@@ -13,6 +13,7 @@ set(SOURCE_FILES
 		Print.cpp
 		File.cpp
 		SD.cpp
+		Stream.cpp
 		utility/Sd2Card.cpp
 		utility/SdFile.cpp
 		utility/SdVolume.cpp)
@@ -24,7 +25,8 @@ set(HEADER_FILES
 		Printable.h
 		SD.h
 		spi_interrupt.h
-		pins_arduino.h)
+		pins_arduino.h
+		Stream.h)
 
 set(UTILITY_HEADER_FILES
 		utility/Sd2Card.h

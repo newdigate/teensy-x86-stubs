@@ -21,9 +21,9 @@
 #define HardwareSerial_h
 
 #include <inttypes.h>
-#include "Print.h"
+#include "Stream.h"
 
-class HardwareSerial {
+class HardwareSerial : public Stream {
 public:
     void begin(unsigned long baud);
     void begin(unsigned long, uint8_t);
