@@ -21,7 +21,7 @@ unsigned long micros() {
 void delay(unsigned long ms) {
   unsigned long start = millis();
   while(millis() - start < ms){
-    usleep(1000);
+    yield();
   }
 }
 
@@ -31,4 +31,13 @@ void initialize_mock_arduino() {
   gettimeofday(&tv_start,NULL);
 
   tv_start_unsigned = 1000000 * tv_start.tv_sec + tv_start.tv_usec;
+}
+
+myyieldfn yield_impl = NULL;
+void yield()
+{
+    if (yield_impl)
+        yield_impl();
+    else
+        usleep(1000);
 }

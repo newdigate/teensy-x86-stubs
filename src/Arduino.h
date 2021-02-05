@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ABSTRACTION_ARDUINO_H
+#define ARDUINO_ABSTRACTION_ARDUINO_H
 #pragma once
 
 typedef unsigned char byte;
@@ -16,6 +18,12 @@ void delay(unsigned long ms);
 // WMath.cpp
 long map(long, long, long, long, long);
 
-void initialize_mock_arduino(); 
+void initialize_mock_arduino();
+
+typedef void (*myyieldfn)();
+extern myyieldfn yield_impl;
+
+void yield();
 
 #include "hardware_serial.h"
+#endif

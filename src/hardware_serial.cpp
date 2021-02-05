@@ -55,9 +55,7 @@ void HardwareSerial::end() {
 }
 
 int HardwareSerial::available(void) {
-  //return (!_inputBuffer.isEmpty());
-    streamsize s = std::cin.rdbuf()->in_avail();
-    return s > 0;
+    return kbhit();
 }
 
 void HardwareSerial::begin(unsigned long, uint8_t) {
