@@ -20,7 +20,7 @@
 #ifndef HardwareSerial_h
 #define HardwareSerial_h
 
-#include <inttypes.h>
+#include <termios.h>    // struct termios, tcgetattr(), tcsetattr()
 #include "Stream.h"
 
 class HardwareSerial : public Stream {
@@ -45,6 +45,9 @@ public:
     void print(char *i);
     void println();
     void printf(const char *s, ...);
+private:
+    termios t;
+    termios t_saved;
 };
 
 extern HardwareSerial Serial;

@@ -20,12 +20,34 @@
 
 #include <cstring>
 #include <iostream>
-#include <iomanip>
-
+#include <cstdio>      // perror(), stderr, stdin, fileno()
+#include <termios.h>
+#include <sys/ioctl.h>
 #include "hardware_serial.h"
 
+int kbhit(void) {
+    static bool initflag = false;
+    static const int STDIN = 0;
+
+    if (!initflag) {
+        // Use termios to turn off line buffering
+        struct termios term;
+        tcgetattr(STDIN, &term);
+        term.c_lflag &= ~ICANON;
+        tcsetattr(STDIN, TCSANOW, &term);
+        setbuf(stdin, NULL);
+        initflag = true;
+    }
+
+    int nbbytes;
+    ioctl(STDIN, FIONREAD, &nbbytes);  // 0 is STDIN
+    return nbbytes;
+}
+
 void HardwareSerial::begin(unsigned long speed) {
-  return;
+    // Set terminal to single character mode.
+
+    return;
 }
 
 void HardwareSerial::end() {
@@ -47,9 +69,10 @@ int HardwareSerial::peek(void) {
 }
 
 int HardwareSerial::read(void) {
-   char ch[1];
-   cin.read(ch, 1);
-   return ch[0];
+    if (!kbhit())
+        return -1;
+    char c = getchar();
+    return c;
 }
 
 int HardwareSerial::availableForWrite(void) {
