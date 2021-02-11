@@ -20,6 +20,7 @@
 #ifndef Print_h
 #define Print_h
 
+#include <cinttypes>
 #include "WString.h"
 #include "Printable.h"
 
