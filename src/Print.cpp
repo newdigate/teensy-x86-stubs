@@ -35,9 +35,9 @@ int Print::write(const uint8_t *buffer, size_t size)
     return count;
 }
 
-size_t Print::print(const string &s)
+size_t Print::print(const String &s)
 {
-    cout << s;
+    cout << s.c_str();
     return 0;
 }
 

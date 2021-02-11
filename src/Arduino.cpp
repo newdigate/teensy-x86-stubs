@@ -24,13 +24,17 @@ void delay(unsigned long ms) {
     yield();
   }
 }
+bool has_initialized_mock_arduino = false;
 
 void initialize_mock_arduino() {
-  ftime(&t_start);
-  struct timeval tv_start;
-  gettimeofday(&tv_start,NULL);
+    if (!has_initialized_mock_arduino) {
+        ftime(&t_start);
+        struct timeval tv_start;
+        gettimeofday(&tv_start, NULL);
 
-  tv_start_unsigned = 1000000 * tv_start.tv_sec + tv_start.tv_usec;
+        tv_start_unsigned = 1000000 * tv_start.tv_sec + tv_start.tv_usec;
+        has_initialized_mock_arduino = true;
+    }
 }
 
 myyieldfn yield_impl = NULL;

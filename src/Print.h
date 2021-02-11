@@ -20,12 +20,7 @@
 #ifndef Print_h
 #define Print_h
 
-#include <cinttypes>
-#include <cstdio> // for size_t
-#include <cstdarg>
-#include <cstring>
-#include <string>
-//#include "WString.h"
+#include "WString.h"
 #include "Printable.h"
 
 #define DEC 10
@@ -53,10 +48,10 @@ public:
     virtual int availableForWrite(void)		{ return 0; }
     virtual void flush()				{ }
     size_t write(const char *buffer, size_t size)   { return write((const uint8_t *)buffer, size); }
-    size_t print(const string &s);
+    size_t print(const String &s);
     size_t print(char c)				{ return write((uint8_t)c); }
     size_t print(const char s[])			{ return write(s); }
-    //size_t print(const __FlashStringHelper *f);
+    size_t print(const __FlashStringHelper *f);
 
     size_t print(uint8_t b)				{ return printNumber(b, 0, 10); }
     size_t print(int n)				{ return print((long)n); }
@@ -73,7 +68,7 @@ public:
     size_t print(double n, int digits = 2)		{ return printFloat(n, digits); }
     size_t print(const Printable &obj)		{ return obj.printTo(*this); }
     size_t println(void);
-    size_t println(const string &s)			{ return print(s) + println(); }
+    size_t println(const String &s)			{ return print(s) + println(); }
     size_t println(char c)				{ return print(c) + println(); }
     size_t println(const char s[])			{ return print(s) + println(); }
     //size_t println(const __FlashStringHelper *f)	{ return print(f) + println(); }

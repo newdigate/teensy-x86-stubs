@@ -14,6 +14,7 @@ set(SOURCE_FILES
 		src/File.cpp
 		src/SD.cpp
 		src/Stream.cpp
+		src/WString.cpp
 		src/utility/Sd2Card.cpp
 		src/utility/SdFile.cpp
 		src/utility/SdVolume.cpp)
@@ -26,7 +27,9 @@ set(HEADER_FILES
 		src/SD.h
 		src/spi_interrupt.h
 		src/pins_arduino.h
-		src/Stream.h)
+		src/Stream.h
+		src/WString.h
+		src/nonstd.h)
 
 set(UTILITY_HEADER_FILES
 		src/utility/Sd2Card.h
