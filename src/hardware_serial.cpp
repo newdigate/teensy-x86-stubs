@@ -21,6 +21,7 @@
 #include <cstring>
 #include <iostream>
 #include <cstdio>      // perror(), stderr, stdin, fileno()
+#include <cstdarg>
 #include <termios.h>
 #include <sys/ioctl.h>
 #include "hardware_serial.h"
