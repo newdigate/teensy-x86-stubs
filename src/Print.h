@@ -71,8 +71,9 @@ public:
     size_t println(void);
     size_t println(const String &s)			{ return print(s) + println(); }
     size_t println(char c)				{ return print(c) + println(); }
-    size_t println(const char s[])			{ return print(s) + println(); }
-    //size_t println(const __FlashStringHelper *f)	{ return print(f) + println(); }
+    size_t println(const char *s)			{ return print(s) + println(); }
+    size_t println(char *s)			{ return print(s) + println(); }
+    size_t println(const __FlashStringHelper *f)	{ return print(f) + println(); }
 
     size_t println(uint8_t b)			{ return print(b) + println(); }
     size_t println(int n)				{ return print(n) + println(); }
@@ -91,8 +92,7 @@ public:
     int getWriteError() { return write_error; }
     void clearWriteError() { setWriteError(0); }
 
-    template <class... Args>
-    int printf(const char *format, Args&&... args);
+    int printf(const char *format, ...);
     //int printf(const __FlashStringHelper *format, ...);
 protected:
     void setWriteError(int err = 1) { write_error = err; }

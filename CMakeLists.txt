@@ -15,9 +15,11 @@ set(SOURCE_FILES
 		src/SD.cpp
 		src/Stream.cpp
 		src/WString.cpp
+        src/core_pins.cpp
 		src/utility/Sd2Card.cpp
 		src/utility/SdFile.cpp
-		src/utility/SdVolume.cpp)
+		src/utility/SdVolume.cpp
+		src/AudioStream.cpp)
 
 set(HEADER_FILES
 		src/hardware_serial.h
@@ -25,11 +27,12 @@ set(HEADER_FILES
 		src/Print.h
 		src/Printable.h
 		src/SD.h
-		src/spi_interrupt.h
 		src/pins_arduino.h
 		src/Stream.h
 		src/WString.h
-		src/nonstd.h)
+		src/nonstd.h
+		src/AudioStream.h
+        src/core_pins.h)
 
 set(UTILITY_HEADER_FILES
 		src/utility/Sd2Card.h
@@ -78,5 +81,5 @@ install(FILES
 #
 
 add_custom_target(uninstall
-		"${CMAKE_COMMAND}" -P "cmake/uninstall.cmake"
+		"${CMAKE_COMMAND}" -P "../cmake/uninstall.cmake"
 		)

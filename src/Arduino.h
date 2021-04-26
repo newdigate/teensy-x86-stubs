@@ -1,14 +1,11 @@
 #ifndef ARDUINO_ABSTRACTION_ARDUINO_H
 #define ARDUINO_ABSTRACTION_ARDUINO_H
-#pragma once
+#include <cinttypes>
+#include "core_pins.h"
 
 typedef unsigned char byte;
 typedef unsigned short int word;
 typedef bool boolean;
-
-unsigned long millis();
-unsigned long micros();
-void delay(unsigned long ms);
 
 #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
@@ -23,7 +20,20 @@ void initialize_mock_arduino();
 typedef void (*myyieldfn)();
 extern myyieldfn yield_impl;
 
-void yield();
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
+
+#ifndef HALF_PI
+#define HALF_PI 1.5707963267948966192313216916398
+#endif
+
+#ifndef TWO_PI
+#define TWO_PI 6.283185307179586476925286766559
+#endif
+
+void __disable_irq();
+void __enable_irq();
 
 #include "hardware_serial.h"
 #endif

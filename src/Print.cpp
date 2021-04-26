@@ -63,10 +63,27 @@ static int printf_putchar(char c, FILE *fp)
     return fprintf(fp, &c, 1);
 }
 
-template <class... Args>
-int Print::printf(const char *format, Args&&... args)
+int Print::printf(const char *format, ... )
 {
-    return printf(format, args...);
+    va_list arg;
+    va_start(arg, format);
+    char temp[64];
+    char* buffer = temp;
+    size_t len = vsnprintf(temp, sizeof(temp), format, arg);
+    va_end(arg);
+    if (len > sizeof(temp) - 1) {
+        buffer = new char[len + 1];
+        if (!buffer) {
+            return -1;
+        }
+        va_start(arg, format);
+        vsnprintf(buffer, len + 1, format, arg);
+        va_end(arg);
+    }
+    len = write((const uint8_t*) buffer, len);
+    if (buffer != temp) {
+        delete[] buffer;
+    }
 }
 
 //#define USE_HACKER_DELIGHT_OPTIMIZATION

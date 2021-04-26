@@ -5,25 +5,6 @@
 timeb t_start;
 unsigned tv_start_unsigned;
 
-unsigned long millis() {
-  timeb t_now;
-  ftime(&t_now);
-  return (t_now.time  - t_start.time) * 1000 + (t_now.millitm - t_start.millitm);
-}
-
-unsigned long micros() {
-  struct timeval tv_now;
-  gettimeofday(&tv_now,NULL);
-  unsigned long time_in_micros = 1000000 * tv_now.tv_sec + tv_now.tv_usec;
-  return (time_in_micros - tv_start_unsigned);
-}
-
-void delay(unsigned long ms) {
-  unsigned long start = millis();
-  while(millis() - start < ms){
-    yield();
-  }
-}
 bool has_initialized_mock_arduino = false;
 
 void initialize_mock_arduino() {
@@ -44,4 +25,18 @@ void yield()
         yield_impl();
     else
         usleep(1000);
+}
+
+void __disable_irq() {}
+void __enable_irq() {}
+
+extern void setup();
+extern void loop();
+
+int main(){
+    initialize_mock_arduino();
+    setup();
+    while (true) {
+        loop();
+    }
 }
