@@ -25,6 +25,7 @@
 #include <inttypes.h>
 #include <math.h>
 #include <iostream>
+#include <stdarg.h>
 #include <fstream>
 #include "Print.h"
 
