@@ -29,14 +29,3 @@ void yield()
 
 void __disable_irq() {}
 void __enable_irq() {}
-
-extern void setup();
-extern void loop();
-
-int main(){
-    initialize_mock_arduino();
-    setup();
-    while (true) {
-        loop();
-    }
-}

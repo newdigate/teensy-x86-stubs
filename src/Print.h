@@ -92,7 +92,11 @@ public:
     int getWriteError() { return write_error; }
     void clearWriteError() { setWriteError(0); }
 
-    int printf(const char *format, ...);
+    template <typename... Args>
+    int printf(const char *format, Args... args) {
+        std::printf(format, args...);
+    }
+
     //int printf(const __FlashStringHelper *format, ...);
 protected:
     void setWriteError(int err = 1) { write_error = err; }
