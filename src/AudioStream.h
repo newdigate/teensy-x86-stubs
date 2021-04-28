@@ -130,6 +130,8 @@ template<class A, class B>
 constexpr auto max(A &&a, B &&b) -> decltype(a < b ? std::forward<A>(a) : std::forward<B>(b)) {
     return a >= b ? std::forward<A>(a) : std::forward<B>(b);
 }
+// Hack for the audio library, to make AudioStream's software_isr visible...
+void software_isr(void);
 
 class AudioStream
 {

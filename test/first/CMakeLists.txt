@@ -17,7 +17,7 @@ add_executable(basic
         ../../src/Print.h
         ../../src/Printable.h
         ../../src/pins_arduino.h
-        basic.cpp
+        first.cpp
         )
 
 set(CMAKE_VERBOSE_MAKEFILE 1)
