@@ -83,11 +83,12 @@ void HardwareSerial::flush(void) {
 }
 
 int HardwareSerial::write(uint8_t a) {
-  // std::cout << a;
-  return 0;
+    char c[1] = { (char)a };
+    cout.write(c, 1);
+    return 0;
 }
 int HardwareSerial::write(unsigned char const* value, unsigned long count) {
-    cout << value;
+    cout.write(reinterpret_cast<const char *>(value), count);
     return 0;
 }
 
