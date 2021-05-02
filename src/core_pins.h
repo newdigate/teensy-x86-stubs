@@ -102,4 +102,11 @@ void tempmon_Start();
 void tempmon_Stop();
 void tempmon_PwrDwn();
 
+#define constrain(amt, low, high) ({ \
+  typeof(amt) _amt = (amt); \
+  typeof(low) _low = (low); \
+  typeof(high) _high = (high); \
+  (_amt < _low) ? _low : ((_amt > _high) ? _high : _amt); \
+})
+
 #endif

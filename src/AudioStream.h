@@ -178,7 +178,7 @@ protected:
     audio_block_t * receiveWritable(unsigned int index = 0);
     static bool update_setup(void);
     static void update_stop(void);
-    static void update_all(void) { }
+    static void update_all(void) { software_isr(); }
     friend void software_isr(void);
     friend class AudioConnection;
     uint8_t numConnections;
