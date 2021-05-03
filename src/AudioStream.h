@@ -34,7 +34,6 @@
 #ifndef __ASSEMBLER__
 #include <stdio.h>  // for NULL
 #include <string.h> // for memcpy
-#include <cstdint> // for memcpy
 #include <utility>
 #include "Arduino.h" // for memcpy
 #endif
