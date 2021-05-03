@@ -2,6 +2,7 @@
 #define ARDUINO_ABSTRACTION_ARDUINO_H
 #include <cinttypes>
 #include "core_pins.h"
+#include <math.h>
 
 typedef unsigned char byte;
 typedef unsigned short int word;
