@@ -41,10 +41,6 @@ public:
     int write(unsigned char const*, unsigned long);
     operator bool() { return true; }
 
-    void print(char i);
-    void print(char *i);
-    void println();
-    void printf(const char *s, ...);
 private:
     termios t;
     termios t_saved;

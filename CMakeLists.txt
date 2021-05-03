@@ -11,36 +11,25 @@ set(SOURCE_FILES
 		src/hardware_serial.cpp
 		src/Arduino.cpp
 		src/Print.cpp
-		src/File.cpp
-		src/SD.cpp
 		src/Stream.cpp
 		src/WString.cpp
-		src/utility/Sd2Card.cpp
-		src/utility/SdFile.cpp
-		src/utility/SdVolume.cpp)
+        src/core_pins.cpp
+		src/AudioStream.cpp)
 
 set(HEADER_FILES
 		src/hardware_serial.h
 		src/Arduino.h
 		src/Print.h
 		src/Printable.h
-		src/SD.h
-		src/spi_interrupt.h
 		src/pins_arduino.h
 		src/Stream.h
 		src/WString.h
-		src/nonstd.h)
+		src/nonstd.h
+		src/AudioStream.h
+        src/core_pins.h
+		src/teensy_main.h)
 
-set(UTILITY_HEADER_FILES
-		src/utility/Sd2Card.h
-		src/utility/Sd2PinMap.h
-		src/utility/SdFat.h
-		src/utility/SdFatUtil.h
-		src/utility/FatStructs.h
-		src/utility/SdFatmainpage.h
-		src/utility/SdInfo.h)
-
-add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${UTILITY_HEADER_FILES} ${SOURCE_FILES})
+add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
@@ -62,10 +51,6 @@ install(TARGETS teensy_x86_stubs DESTINATION
 		)
 
 install(FILES
-		${UTILITY_HEADER_FILES}
-		DESTINATION "include/teensy_x86_stubs/utility" )
-
-install(FILES
 		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
 		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
 		cmake/uninstall.cmake
@@ -78,5 +63,5 @@ install(FILES
 #
 
 add_custom_target(uninstall
-		"${CMAKE_COMMAND}" -P "cmake/uninstall.cmake"
+		"${CMAKE_COMMAND}" -P "../cmake/uninstall.cmake"
 		)

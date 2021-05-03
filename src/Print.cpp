@@ -25,6 +25,7 @@
 #include <inttypes.h>
 #include <math.h>
 #include <iostream>
+#include <stdarg.h>
 #include <fstream>
 #include "Print.h"
 
@@ -56,17 +57,6 @@ size_t Print::println(void)
 {
     uint8_t buf[2]={'\r', '\n'};
     return write(buf, 2);
-}
-
-static int printf_putchar(char c, FILE *fp)
-{
-    return fprintf(fp, &c, 1);
-}
-
-template <class... Args>
-int Print::printf(const char *format, Args&&... args)
-{
-    return printf(format, args...);
 }
 
 //#define USE_HACKER_DELIGHT_OPTIMIZATION
