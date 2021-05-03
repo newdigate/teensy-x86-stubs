@@ -94,7 +94,7 @@ public:
 
     template <typename... Args>
     int printf(const char *format, Args... args) {
-        std::printf(format, args...);
+        return std::printf(format, args...);
     }
 
     //int printf(const __FlashStringHelper *format, ...);
