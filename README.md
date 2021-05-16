@@ -5,6 +5,16 @@
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
+* [quick example](#quick-example)
+  * [main.cpp](#maincpp)
+  * [output](#output)
+  * [CMakelists.txt](#cmakeliststxt)
+* [package installation](#package-installation)
+* [uninstall](#uninstall)
+* [credits](#credits)
+* [license](#license)
+
+
 ## quick example
 * to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
 ``` c++
@@ -68,7 +78,7 @@ cmake ..
 sudo make install
 ```
 
-### uninstall:
+## uninstall:
 ``` sh
 sudo make uninstall
 ```
