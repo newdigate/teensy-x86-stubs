@@ -29,8 +29,7 @@
  */
 
 #include "core_pins.h"
-#include <sys/timeb.h>
-#include <sys/time.h>
+#include <chrono>
 
 void digitalWrite(uint8_t pin, uint8_t val) {}
 void digitalWriteFast(uint8_t pin, uint8_t val)
@@ -80,13 +79,16 @@ void _restart_Teensyduino_(void) __attribute__((noreturn));
 
 void yield(void);
 
-extern timeb t_start;
+extern time_t t_start;
 extern unsigned tv_start_unsigned;
 
+using namespace std::chrono;
+
 uint32_t millis(void) {
-    timeb t_now;
-    ftime(&t_now);
-    return (t_now.time  - t_start.time) * 1000 + (t_now.millitm - t_start.millitm);
+    milliseconds ms = duration_cast< milliseconds >(
+            system_clock::now().time_since_epoch()
+    );
+    return ms.count() - t_start;
 }
 
 void delayMilliseconds(uint32_t millisec)
@@ -103,10 +105,10 @@ void delay(uint32_t msec) {
 
 
 unsigned long micros() {
-    struct timeval tv_now;
-    gettimeofday(&tv_now,NULL);
-    unsigned long time_in_micros = 1000000 * tv_now.tv_sec + tv_now.tv_usec;
-    return (time_in_micros - tv_start_unsigned);
+    microseconds us = duration_cast< microseconds >(
+            system_clock::now().time_since_epoch()
+    );
+    return us.count() - tv_start_unsigned;
 }
 
 void delayMicroseconds(uint32_t usec)
@@ -118,10 +120,8 @@ void delayMicroseconds(uint32_t usec)
 }
 
 unsigned long nanos() {
-    struct timeval tv_now;
-    gettimeofday(&tv_now,NULL);
-    unsigned long time_in_micros = 1000000000 * tv_now.tv_sec + tv_now.tv_usec;
-    return (time_in_micros - tv_start_unsigned);
+    unsigned long time_in_nanos = 1000 * (micros() - tv_start_unsigned);
+    return time_in_nanos;
 }
 
 void delayNanoseconds(uint32_t nsec)
