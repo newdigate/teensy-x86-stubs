@@ -5,6 +5,16 @@
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
+* [quick example](#quick-example)
+  * [main.cpp](#maincpp)
+  * [output](#output)
+  * [CMakelists.txt](#cmakeliststxt)
+* [package installation](#package-installation)
+* [uninstall](#uninstall)
+* [credits](#credits)
+* [license](#license)
+
+
 ## quick example
 * to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
 ``` c++
@@ -68,19 +78,18 @@ cmake ..
 sudo make install
 ```
 
-### uninstall:
+## uninstall:
 ``` sh
 sudo make uninstall
 ```
 
 ## credits
-##### Don't Run Unit Tests on the Arduino Device or Emulator 
-* [stackoverflow 11437456](https://stackoverflow.com/a/11437456)
-* includes code from [IronSavior/dsm2_tx](https://github.com/IronSavior/dsm2_tx)
-
-##### cmake uninstaller 
-*  [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
-
+* simial to [maniacbug/ncore](https://github.com/maniacbug/ncore)
+* Don't Run Unit Tests on the Arduino Device or Emulator 
+  * [stackoverflow 11437456](https://stackoverflow.com/a/11437456)
+  * includes code from [IronSavior/dsm2_tx](https://github.com/IronSavior/dsm2_tx)
+* cmake uninstaller 
+  * [gist.github.com/royvandam/3033428](https://gist.github.com/royvandam/3033428)
 
 ## license
 Unless specified in source code file, all code is MIT license.
