@@ -34,8 +34,8 @@
 #ifndef __ASSEMBLER__
 #include <stdio.h>  // for NULL
 #include <string.h> // for memcpy
-#include <utility>
 #include "Arduino.h" // for memcpy
+#include <utility>
 #endif
 
 // AUDIO_BLOCK_SAMPLES determines how many samples the audio library processes
