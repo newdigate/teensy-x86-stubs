@@ -35,6 +35,6 @@ extern myyieldfn yield_impl;
 
 void __disable_irq();
 void __enable_irq();
-
+extern volatile bool arduino_should_exit;
 #include "hardware_serial.h"
 #endif
