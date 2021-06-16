@@ -2,6 +2,7 @@
 #include "Arduino.h"
 #include <unistd.h>
 #include <chrono>
+#include <thread>
 unsigned long t_start;
 unsigned tv_start_unsigned;
 
@@ -27,9 +28,21 @@ void yield()
 {
     if (yield_impl)
         yield_impl();
-    else
-        usleep(1000);
+    else 
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        //usleep(1000);
 }
 
-void __disable_irq() {}
-void __enable_irq() {}
+std::mutex critical_section_mutex;
+volatile bool arduino_should_exit = false;
+void __disable_irq() {
+    if (arduino_should_exit) return;    
+    while (!critical_section_mutex.try_lock() && !arduino_should_exit) {
+        if (arduino_should_exit) return;
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
+    };
+}
+void __enable_irq() {
+    if (arduino_should_exit) return;
+    critical_section_mutex.unlock();
+}

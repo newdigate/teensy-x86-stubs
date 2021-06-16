@@ -30,6 +30,7 @@
 
 #include "core_pins.h"
 #include <chrono>
+#include <thread>
 
 void digitalWrite(uint8_t pin, uint8_t val) {}
 void digitalWriteFast(uint8_t pin, uint8_t val)
@@ -93,10 +94,7 @@ uint32_t millis(void) {
 
 void delayMilliseconds(uint32_t millisec)
 {
-    unsigned long start = millis();
-    while(millis() - start < millisec){
-        yield();
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(millisec));
 }
 
 void delay(uint32_t msec) {
@@ -113,10 +111,7 @@ unsigned long micros() {
 
 void delayMicroseconds(uint32_t usec)
 {
-    unsigned long start = micros();
-    while(micros() - start < usec){
-        yield();
-    }
+    std::this_thread::sleep_for(std::chrono::microseconds (usec));
 }
 
 unsigned long nanos() {
@@ -126,10 +121,7 @@ unsigned long nanos() {
 
 void delayNanoseconds(uint32_t nsec)
 {
-    unsigned long start = nanos();
-    while(nanos() - start < nsec){
-        yield();
-    }
+    std::this_thread::sleep_for(std::chrono::nanoseconds (nsec));
 }
 
 
