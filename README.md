@@ -20,7 +20,7 @@ installable cmake package with stub classes to allow basic teensy code and libra
 ``` c++
     initialize_mock_arduino()
 ```
-* To test teensy code accessing an SD card file, we call 
+* To test teensy code accessing an SD card file, you'll need to install [teensy-x86-sd-stubs](https://github.com/newdigate/teensy-x86-sd-stubs)
 ``` c++ 
     char *buffer = "blah blah blah blah blah";
     SD.setSDCardFileData(buffer, strlen(buffer));
