@@ -307,6 +307,7 @@ AudioStream * AudioStream::first_update = NULL;
 
 void AudioConnection::reset() {
     AudioStream::first_update = NULL;
+    AudioStream::update_scheduled = false;
 }
 
 void software_isr(void) // AudioStream::update_all()
