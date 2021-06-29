@@ -91,6 +91,7 @@ public:
     }
     void disconnect(void);
     void connect(void);
+    static void reset();
 protected:
     AudioStream &src;
     AudioStream &dst;

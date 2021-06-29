@@ -305,6 +305,10 @@ void AudioStream::update_stop(void)
 
 AudioStream * AudioStream::first_update = NULL;
 
+void AudioConnection::reset() {
+    AudioStream::first_update = NULL;
+}
+
 void software_isr(void) // AudioStream::update_all()
 {
     AudioStream *p;
