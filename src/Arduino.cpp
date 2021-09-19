@@ -12,7 +12,7 @@ using namespace std::chrono;
 void initialize_mock_arduino() {
     if (!has_initialized_mock_arduino) {
 
-        auto epoch = system_clock::now().time_since_epoch();
+        const auto epoch = system_clock::now().time_since_epoch();
 
         milliseconds ms = duration_cast< milliseconds >(epoch);
         t_start = ms.count();
