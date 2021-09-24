@@ -317,8 +317,6 @@ void software_isr(void) // AudioStream::update_all()
     uint32_t totalcycles = micros();
     //digitalWriteFast(2, HIGH);
     for (p = AudioStream::first_update; p; p = p->next_update) {
-        if (arduino_should_exit)
-            return;
         if (p->active) {
             uint32_t cycles = micros();
             p->update();
