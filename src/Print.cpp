@@ -29,7 +29,7 @@
 #include <fstream>
 #include "Print.h"
 
-int Print::write(const uint8_t *buffer, size_t size)
+size_t Print::write(const uint8_t *buffer, size_t size)
 {
     size_t count = 0;
     while (size--) count += write(*buffer++);

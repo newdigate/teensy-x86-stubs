@@ -21,6 +21,7 @@
 #define HardwareSerial_h
 
 #include <termios.h>    // struct termios, tcgetattr(), tcsetattr()
+#include <queue>
 #include "Stream.h"
 
 class HardwareSerial : public Stream {
@@ -33,17 +34,23 @@ public:
     int read(void);
     int availableForWrite(void);
     void flush(void);
-    int write(uint8_t);
+    size_t write(uint8_t);
     inline int write(unsigned long n) { return write((uint8_t)n); }
     inline int write(long n) { return write((uint8_t)n); }
     inline int write(unsigned int n) { return write((uint8_t)n); }
     inline int write(int n) { return write((uint8_t)n); }
-    int write(unsigned char const*, unsigned long);
+    size_t write(unsigned char const*, unsigned long);
     operator bool() { return true; }
+    void queueSimulatedCharacterInput(char *c, long numChars) {
+      for (int i = 0; i<numChars; i++) {
+        input.push(c[i]);
+      }
+    }
 
 private:
     termios t;
     termios t_saved;
+    queue<char> input;
 };
 
 extern HardwareSerial Serial;

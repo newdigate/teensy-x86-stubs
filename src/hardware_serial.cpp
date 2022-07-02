@@ -56,7 +56,7 @@ void HardwareSerial::end() {
 }
 
 int HardwareSerial::available(void) {
-    return kbhit();
+    return !input.empty() || kbhit();
 }
 
 void HardwareSerial::begin(unsigned long, uint8_t) {
@@ -68,6 +68,11 @@ int HardwareSerial::peek(void) {
 }
 
 int HardwareSerial::read(void) {
+    if (!input.empty()){
+      char &c = input.front();
+      input.pop();
+      return c;
+    }
     if (!kbhit())
         return -1;
     char c = getchar();
@@ -82,12 +87,12 @@ void HardwareSerial::flush(void) {
 
 }
 
-int HardwareSerial::write(uint8_t a) {
+size_t HardwareSerial::write(uint8_t a) {
     char c[1] = { (char)a };
     cout.write(c, 1);
     return 0;
 }
-int HardwareSerial::write(unsigned char const* value, unsigned long count) {
+size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
     cout.write(reinterpret_cast<const char *>(value), count);
     return 0;
 }

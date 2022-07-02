@@ -38,7 +38,7 @@ void digitalWriteFast(uint8_t pin, uint8_t val)
     digitalWrite(pin, val);
 }
 
-uint8_t digitalRead(uint8_t pin) {}
+uint8_t digitalRead(uint8_t pin) { return 0; }
 uint8_t digitalReadFast(uint8_t pin)
 {
     return 0;
@@ -65,7 +65,7 @@ void analogReadRes(unsigned int bits) {}
 inline void analogReadResolution(unsigned int bits) { analogReadRes(bits); }
 void analogReadAveraging(unsigned int num) {}
 void analog_init(void) {}
-int touchRead(uint8_t pin) {}
+int touchRead(uint8_t pin) {return 0;}
 
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value)
 {
@@ -73,6 +73,7 @@ void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value
 
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
 {
+    return 0;
 }
 
 void _reboot_Teensyduino_(void) __attribute__((noreturn));
@@ -130,7 +131,7 @@ void rtc_set(unsigned long t) {}
 void rtc_compensate(int adjust) {}
 
 void tempmon_init(void) {}
-float tempmonGetTemp(void) {}
+float tempmonGetTemp(void) { return 0.0f;}
 void tempmon_Start() {}
 void tempmon_Stop() {}
 void tempmon_PwrDwn() {}
