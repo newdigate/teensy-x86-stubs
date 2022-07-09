@@ -5,6 +5,7 @@
 
 installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
 
+* [eco-system](#eco-system)
 * [quick example](#quick-example)
   * [main.cpp](#maincpp)
   * [output](#output)
@@ -13,6 +14,19 @@ installable cmake package with stub classes to allow basic teensy code and libra
 * [uninstall](#uninstall)
 * [credits](#credits)
 * [license](#license)
+
+## eco-system
+[sd](https://github.com/newdigate/teensy-x86-sd-stubs)
+|
+[audio](https://github.com/newdigate/teensy-audio-x86-stubs)
+|
+[st7735](https://github.com/newdigate/teensy-st7735-linux-stubs)
+|
+[midi](https://github.com/newdigate/teensy-x86-midi-stubs)
+|
+[bounce2](https://github.com/newdigate/teensy-x86-bounce2-stubs)
+|
+[encoder](https://github.com/newdigate/teensy-x86-encoder-stubs)
 
 
 ## quick example
