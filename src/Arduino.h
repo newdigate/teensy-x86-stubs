@@ -4,10 +4,6 @@
 #include "core_pins.h"
 #include <math.h>
 
-typedef unsigned char byte;
-typedef unsigned short int word;
-typedef bool boolean;
-
 #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))

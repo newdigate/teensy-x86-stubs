@@ -14,7 +14,8 @@ set(SOURCE_FILES
 		src/Stream.cpp
 		src/WString.cpp
         src/core_pins.cpp
-		src/AudioStream.cpp)
+		src/AudioStream.cpp
+		src/nonstd.cpp)
 
 set(HEADER_FILES
 		src/hardware_serial.h
