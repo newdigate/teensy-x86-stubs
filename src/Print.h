@@ -35,8 +35,6 @@
 #define BYTE 0
 #endif
 
-using namespace std;
-
 //class __FlashStringHelper;
 
 class Print

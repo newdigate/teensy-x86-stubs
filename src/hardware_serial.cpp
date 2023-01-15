@@ -64,7 +64,7 @@ void HardwareSerial::begin(unsigned long, uint8_t) {
 }
 
 int HardwareSerial::peek(void) {
-  return cin.peek();
+  return std::cin.peek();
 }
 
 int HardwareSerial::read(void) {
@@ -89,11 +89,11 @@ void HardwareSerial::flush(void) {
 
 size_t HardwareSerial::write(uint8_t a) {
     char c[1] = { (char)a };
-    cout.write(c, 1);
+    std::cout.write(c, 1);
     return 0;
 }
 size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
-    cout.write(reinterpret_cast<const char *>(value), count);
+    std::cout.write(reinterpret_cast<const char *>(value), count);
     return 0;
 }
 

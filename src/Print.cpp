@@ -38,7 +38,7 @@ size_t Print::write(const uint8_t *buffer, size_t size)
 
 size_t Print::print(const String &s)
 {
-    cout << s.c_str();
+    std::cout << s.c_str();
     return 0;
 }
 

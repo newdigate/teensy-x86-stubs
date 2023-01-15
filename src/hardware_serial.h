@@ -50,7 +50,7 @@ public:
 private:
     termios t;
     termios t_saved;
-    queue<char> input;
+    std::queue<char> input;
 };
 
 extern HardwareSerial Serial;
