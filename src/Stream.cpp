@@ -259,7 +259,7 @@ String Stream::readString(size_t max)
         int c = timedRead();
         if (c < 0) {
             setReadError();
-            break;	// timeout
+            continue;//break;	// timeout
         }
         if (c == 0) break;
         str += (char)c;
@@ -275,7 +275,7 @@ String Stream::readStringUntil(char terminator, size_t max)
         int c = timedRead();
         if (c < 0) {
             setReadError();
-            break;	// timeout
+            continue; //break;	// timeout
         }
         if (c == 0 || c == terminator) break;
         str += (char)c;

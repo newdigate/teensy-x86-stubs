@@ -76,13 +76,24 @@ uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
     return 0;
 }
 
+#ifdef _MSC_VER
+__declspec(noreturn) void _reboot_Teensyduino_(void);
+__declspec(noreturn) void _restart_Teensyduino_(void);
+#else
 void _reboot_Teensyduino_(void) __attribute__((noreturn));
 void _restart_Teensyduino_(void) __attribute__((noreturn));
+#endif // _MSC_VER
 
 void yield(void);
 
+#ifdef _MSC_VER
+time_t t_start;
+unsigned tv_start_unsigned;
+#else
 extern time_t t_start;
 extern unsigned tv_start_unsigned;
+#endif // _MSC_VER
+
 
 using namespace std::chrono;
 

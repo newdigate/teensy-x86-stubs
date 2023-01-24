@@ -4,8 +4,8 @@ set(teensy_x86_stubs_VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/)
-set(LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs )
+set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/")
+set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs" )
 
 set(SOURCE_FILES
 		src/hardware_serial.cpp
@@ -15,6 +15,10 @@ set(SOURCE_FILES
 		src/WString.cpp
         src/core_pins.cpp
 		src/AudioStream.cpp)
+
+if (MSVC)
+	set(SOURCE_FILES ${SOURCE_FILES} src/ctz_clz.cpp)
+endif()
 
 set(HEADER_FILES
 		src/hardware_serial.h

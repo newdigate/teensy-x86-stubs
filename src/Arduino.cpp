@@ -1,11 +1,15 @@
 
 #include "Arduino.h"
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
+
 #include <chrono>
 #include <thread>
 #include <mutex>
-unsigned long t_start;
-unsigned tv_start_unsigned;
+
+unsigned t_start = 0;
+unsigned tv_start_unsigned = 0;
 
 bool has_initialized_mock_arduino = false;
 using namespace std::chrono;

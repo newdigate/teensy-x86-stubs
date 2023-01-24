@@ -73,8 +73,13 @@ int touchRead(uint8_t pin);
 
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value);
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
+#ifdef _MSC_VER
+__declspec(noreturn) void _reboot_Teensyduino_(void);
+__declspec(noreturn) void _restart_Teensyduino_(void);
+#else
 void _reboot_Teensyduino_(void) __attribute__((noreturn));
 void _restart_Teensyduino_(void) __attribute__((noreturn));
+#endif // _MSC_VER
 
 void yield(void);
 

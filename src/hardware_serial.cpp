@@ -22,14 +22,19 @@
 #include <iostream>
 #include <cstdio>      // perror(), stderr, stdin, fileno()
 #include <cstdarg>
+#ifndef _MSC_VER
 #include <termios.h>
 #include <sys/ioctl.h>
+#else
+#include <Windows.h>
+#include <conio.h>
+#endif
 #include "hardware_serial.h"
 
 int kbhit(void) {
+#ifndef _MSC_VER
     static bool initflag = false;
     static const int STDIN = 0;
-
     if (!initflag) {
         // Use termios to turn off line buffering
         struct termios term;
@@ -40,9 +45,29 @@ int kbhit(void) {
         initflag = true;
     }
 
-    int nbbytes;
+    int nbbytes = 0;
     ioctl(STDIN, FIONREAD, &nbbytes);  // 0 is STDIN
     return nbbytes;
+#else
+    int nbbytes = 0;
+    nbbytes =_kbhit();
+    return nbbytes;
+#endif
+}
+
+void HardwareSerial::InitializeConsole() {
+#ifdef _MSC_VER
+    HANDLE hstdin = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(hstdin, &_consoleMode);
+    SetConsoleMode(hstdin, 0);
+#endif
+}
+
+void  HardwareSerial::ResetConsole() {
+#ifdef _MSC_VER
+    HANDLE hstdin = GetStdHandle(STD_INPUT_HANDLE);
+    SetConsoleMode(hstdin, _consoleMode);
+#endif
 }
 
 void HardwareSerial::begin(unsigned long speed) {
@@ -73,10 +98,45 @@ int HardwareSerial::read(void) {
       input.pop();
       return c;
     }
+#ifndef _MSC_VER
     if (!kbhit())
         return -1;
     char c = getchar();
     return c;
+#else
+    //char c = getchar();
+    DWORD cNumRead, fdwMode, i;
+    INPUT_RECORD irInBuf[1];
+    int counter = 0;
+    DWORD bufSize = 0;
+    // Get the standard input handle.
+
+    HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+
+    if (!GetNumberOfConsoleInputEvents(hStdin, &bufSize))
+        return -1;
+
+    if (bufSize == 0)
+        return -1;
+
+    if (!ReadConsoleInput(
+        hStdin,      // input buffer handle
+        irInBuf,     // buffer to read into
+        1,         // size of read buffer
+        &cNumRead)) // number of records read
+        return -1;
+    if (cNumRead == 0) return -1;
+    switch (irInBuf[0].EventType)
+    {
+        case KEY_EVENT: // keyboard input
+            if (irInBuf[0].Event.KeyEvent.bKeyDown)
+                return irInBuf[0].Event.KeyEvent.uChar.AsciiChar;
+            else
+                return -1;
+        default:
+            return -1;
+    }
+#endif
 }
 
 int HardwareSerial::availableForWrite(void) {

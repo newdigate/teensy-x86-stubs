@@ -20,12 +20,25 @@
 #ifndef HardwareSerial_h
 #define HardwareSerial_h
 
+#ifndef _MSC_VER
 #include <termios.h>    // struct termios, tcgetattr(), tcsetattr()
+#endif
+
 #include <queue>
 #include "Stream.h"
 
 class HardwareSerial : public Stream {
 public:
+    HardwareSerial() : Stream() {
+        InitializeConsole();
+    }
+
+    virtual ~HardwareSerial() {
+        ResetConsole();
+    };
+
+    void InitializeConsole();
+    void ResetConsole();
     void begin(unsigned long baud);
     void begin(unsigned long, uint8_t);
     void end();
@@ -48,8 +61,13 @@ public:
     }
 
 private:
+#ifndef _MSC_VER
     termios t;
     termios t_saved;
+#else
+    unsigned long _consoleMode;
+#endif _MSC_VER
+
     std::queue<char> input;
 };
 
