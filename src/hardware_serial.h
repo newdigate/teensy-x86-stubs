@@ -66,7 +66,7 @@ private:
     termios t_saved;
 #else
     unsigned long _consoleMode;
-#endif _MSC_VER
+#endif
 
     std::queue<char> input;
 };
