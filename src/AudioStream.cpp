@@ -32,6 +32,10 @@
 #include "Arduino.h"
 #include "AudioStream.h"
 
+#ifdef _MSC_VER
+#include "ctz_clz.cpp"
+#endif
+
 #define MAX_AUDIO_MEMORY 229376
 
 #define NUM_MASKS  (((MAX_AUDIO_MEMORY / AUDIO_BLOCK_SAMPLES / 2) + 31) / 32)
