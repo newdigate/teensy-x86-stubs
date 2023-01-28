@@ -3,11 +3,12 @@
 #include <cinttypes>
 #include "core_pins.h"
 #include <math.h>
-
+#ifndef _MSC_VER
 typedef unsigned char byte;
 typedef unsigned short int word;
 typedef bool boolean;
-
+#else
+#endif
 #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
