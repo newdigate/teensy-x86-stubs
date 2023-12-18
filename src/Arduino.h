@@ -17,7 +17,10 @@ typedef bool boolean;
 
 // WMath.cpp
 long map(long, long, long, long, long);
-
+#define PROGMEM
+#define DMAMEM
+#define FLASHMEM
+#define EXTMEM
 void initialize_mock_arduino();
 
 typedef void (*myyieldfn)();
