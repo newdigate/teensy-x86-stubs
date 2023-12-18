@@ -2,6 +2,7 @@
 #define ARDUINO_ABSTRACTION_ARDUINO_H
 #include <cinttypes>
 #include "core_pins.h"
+#include "pins_arduino.h"
 #include <math.h>
 #ifndef _MSC_VER
 typedef unsigned char byte;
