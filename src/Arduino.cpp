@@ -13,6 +13,9 @@ unsigned tv_start_unsigned = 0;
 
 bool has_initialized_mock_arduino = false;
 using namespace std::chrono;
+uint8_t external_psram_size = 16;
+
+/// @brief reset the timer so when calling millis(), etc, you will get the time relative to the start of the program
 void initialize_mock_arduino() {
     if (!has_initialized_mock_arduino) {
 

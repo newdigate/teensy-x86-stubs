@@ -21,6 +21,10 @@ long map(long, long, long, long, long);
 #define DMAMEM
 #define FLASHMEM
 #define EXTMEM
+
+#define interrupts()
+#define noInterrupts()
+
 void initialize_mock_arduino();
 
 typedef void (*myyieldfn)();
