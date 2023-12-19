@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(teensy_x86_stubs C CXX)
 set(teensy_x86_stubs_VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/")
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs" )
