@@ -61,7 +61,7 @@ public:
 	// all hardware timers are already in use.
 	template <typename period_t>
 	bool begin(callback_t funct, period_t period) {
-		uint32_t cycles = microsFromPeriod(period);
+		uint32_t cycles = period;
 		return beginCycles(funct, cycles);
 	}
 	// Change the timer's interval.  The current interval is completed
@@ -106,16 +106,9 @@ public:
     }
 	
 private:
-//#define IMXRT_PIT_CHANNELS              ((IMXRT_PIT_CHANNEL_t *)(&(IMXRT_PIT.offset100)))
-	//IMXRT_PIT_CHANNEL_t *channel = nullptr;
     struct sigaction s_action;
     struct itimerval timer;
 	bool beginCycles(callback_t funct, uint32_t cycles);
-
-	template <typename period_t>
-	uint32_t microsFromPeriod(period_t period) {
-		return period * 1000;
-	}
 };
 
 #endif //__INTERVALTIMER_H__

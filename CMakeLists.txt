@@ -14,6 +14,7 @@ set(SOURCE_FILES
 		src/Stream.cpp
 		src/WString.cpp
         src/core_pins.cpp
+		src/IntervalTimer.cpp
 		src/AudioStream.cpp)
 
 if (MSVC)
@@ -31,9 +32,11 @@ set(HEADER_FILES
 		src/nonstd.h
 		src/AudioStream.h
         src/core_pins.h
+		src/IntervalTimer.h
 		src/teensy_main.h)
 
 add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
+add_subdirectory(test/first)
 
 set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
