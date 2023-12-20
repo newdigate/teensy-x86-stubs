@@ -21,7 +21,7 @@ long map(long, long, long, long, long);
 #define DMAMEM
 #define FLASHMEM
 #define EXTMEM
-
+#define FASTRUN
 #define interrupts()
 #define noInterrupts()
 
