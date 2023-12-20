@@ -49,16 +49,16 @@
 #include "Arduino.h"
 
 void digitalWrite(uint8_t pin, uint8_t val);
-inline void digitalWriteFast(uint8_t pin, uint8_t val);
+void digitalWriteFast(uint8_t pin, uint8_t val);
 uint8_t digitalRead(uint8_t pin);
-inline uint8_t digitalReadFast(uint8_t pin);
+uint8_t digitalReadFast(uint8_t pin);
 void digitalToggle(uint8_t pin);
-inline void digitalToggleFast(uint8_t pin);
+void digitalToggleFast(uint8_t pin);
 void pinMode(uint8_t pin, uint8_t mode);
 void init_pins(void);
 void analogWrite(uint8_t pin, int val);
 uint32_t analogWriteRes(uint32_t bits);
-inline uint32_t analogWriteResolution(uint32_t bits);
+uint32_t analogWriteResolution(uint32_t bits);
 void analogWriteFrequency(uint8_t pin, float frequency);
 void attachInterrupt(uint8_t pin, void (*function)(void), int mode);
 void detachInterrupt(uint8_t pin);
