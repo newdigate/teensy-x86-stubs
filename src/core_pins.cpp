@@ -87,8 +87,8 @@ void _restart_Teensyduino_(void) __attribute__((noreturn));
 void yield(void);
 
 #ifdef _MSC_VER
-time_t t_start;
-unsigned tv_start_unsigned;
+time_t t_start = 0;
+unsigned tv_start_unsigned = 0;
 #else
 extern time_t t_start;
 extern unsigned tv_start_unsigned;
@@ -146,4 +146,5 @@ float tempmonGetTemp(void) { return 0.0f;}
 void tempmon_Start() {}
 void tempmon_Stop() {}
 void tempmon_PwrDwn() {}
+
 
