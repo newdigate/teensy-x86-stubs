@@ -3,6 +3,9 @@
 #include <cinttypes>
 #include "core_pins.h"
 #include "pins_arduino.h"
+uint32_t millis(void);
+unsigned long micros();
+#include "elapsedMillis.h"
 #include <math.h>
 #ifndef _MSC_VER
 typedef unsigned char byte;

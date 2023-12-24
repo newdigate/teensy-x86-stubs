@@ -9853,12 +9853,8 @@ These register are used by the ROM code and should not be used by application so
 
 // 0 = highest priority
 // Cortex-M7: 0,16,32,48,64,80,96,112,128,144,160,176,192,208,224,240
-#define NVIC_SET_PRIORITY(irqnum, priority)  (*((volatile uint8_t *)0xE000E400 + (irqnum)) = (uint8_t)(priority))
-#define NVIC_GET_PRIORITY(irqnum) (*((uint8_t *)0xE000E400 + (irqnum)))
-
-
-#define __disable_irq() __asm__ volatile("CPSID i":::"memory");
-#define __enable_irq()  __asm__ volatile("CPSIE i":::"memory");
+#define NVIC_SET_PRIORITY(irqnum, priority)  ()
+#define NVIC_GET_PRIORITY(irqnum) ()
 
 
 // System Control Space (SCS), ARMv7 ref manual, B3.2, page 708
