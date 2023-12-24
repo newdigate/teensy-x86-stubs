@@ -137,7 +137,7 @@ void delayNanoseconds(uint32_t nsec)
 }
 
 
-unsigned long rtc_get(void) { return millis(); }
+unsigned long rtc_get(void) { return tv_start_unsigned; }
 void rtc_set(unsigned long t) {}
 void rtc_compensate(int adjust) {}
 
