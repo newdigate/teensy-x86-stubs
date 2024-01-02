@@ -26,6 +26,7 @@
 
 #include <queue>
 #include "Stream.h"
+#include <sstream>
 
 class HardwareSerial : public Stream {
 public:
@@ -54,11 +55,27 @@ public:
     inline int write(int n) { return write((uint8_t)n); }
     size_t write(unsigned char const*, unsigned long);
     operator bool() { return true; }
+
+    // non-Arduino api
     void queueSimulatedCharacterInput(char *c, long numChars) {
       for (int i = 0; i<numChars; i++) {
         input.push(c[i]);
       }
     }
+
+    void addEventListener(const std::function<void(const char *, size_t)> &callback) {
+        callbacks.push_back(callback);
+    }
+
+    template <typename... Args>
+    int printf(const char *format, Args... args) {
+        auto length = std::snprintf(NULL, 0, format, args... );
+        char buffer[length+100];
+        std::snprintf(buffer, length+100, format, args... );
+        return write((const unsigned char*)buffer, strlen(buffer));
+    }
+
+    static void (*serial1_initialized_callback)(HardwareSerial &s);
 
 private:
 #ifndef _MSC_VER
@@ -69,6 +86,7 @@ private:
 #endif
 
     std::queue<char> input;
+    std::vector<std::function<void(const char*, size_t)>> callbacks;
 };
 
 extern HardwareSerial Serial;

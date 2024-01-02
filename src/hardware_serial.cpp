@@ -148,13 +148,33 @@ void HardwareSerial::flush(void) {
 }
 
 size_t HardwareSerial::write(uint8_t a) {
-    char c[1] = { (char)a };
-    std::cout.write(c, 1);
+    char c = static_cast<char>(a);
+    std::cout.write(&c, 1);
+    for(auto & callback: callbacks) {
+        if (callback) {
+            callback(&c, 1);
+        }
+    }
     return 0;
 }
 size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
-    std::cout.write(reinterpret_cast<const char *>(value), count);
+    auto value2 = reinterpret_cast<const char *>(value);
+    std::cout.write(value2, count);
+
+    for(auto & callback: callbacks) {
+        if (callback) {
+            callback(value2, count);
+        }
+    }
     return 0;
 }
+void (*HardwareSerial::serial1_initialized_callback)(HardwareSerial &s) = nullptr;
 
-HardwareSerial Serial;
+HardwareSerial &getSerial() {
+    static HardwareSerial actual;
+    if (HardwareSerial::serial1_initialized_callback) {
+        HardwareSerial::serial1_initialized_callback(actual);
+    }
+    return actual;
+};
+HardwareSerial Serial = getSerial();
