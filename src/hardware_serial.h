@@ -26,7 +26,7 @@
 
 #include <queue>
 #include "Stream.h"
-#include <sstream>
+#include <functional>
 
 class HardwareSerial : public Stream {
 public:
