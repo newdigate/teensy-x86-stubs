@@ -55,8 +55,7 @@ size_t Print::print(long n)
 
 size_t Print::println(void)
 {
-    uint8_t buf[2]={'\r', '\n'};
-    return write(buf, 2);
+    return write('\n');
 }
 
 //#define USE_HACKER_DELIGHT_OPTIMIZATION
