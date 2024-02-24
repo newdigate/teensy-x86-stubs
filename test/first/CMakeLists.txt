@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(basic_test C CXX)
 set(CMAKE_CXX_STANDARD 17)
 
+add_executable(basic
         ../../src/Arduino.h
         ../../src/Arduino.cpp
         ../../src/hardware_serial.h
@@ -16,6 +17,7 @@ set(CMAKE_CXX_STANDARD 17)
         ../../src/Print.h
         ../../src/Printable.h
         ../../src/pins_arduino.h
+        ../../src/IntervalTimer.cpp
         first.cpp
         )
 
