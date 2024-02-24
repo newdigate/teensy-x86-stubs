@@ -45,6 +45,7 @@ set(HEADER_FILES
 
 add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
 add_subdirectory(test/first)
+add_subdirectory(test/blink)
 
 set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
