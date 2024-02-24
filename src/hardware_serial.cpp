@@ -168,13 +168,4 @@ size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
     }
     return 0;
 }
-void (*HardwareSerial::serial1_initialized_callback)(HardwareSerial &s) = nullptr;
-
-HardwareSerial &getSerial() {
-    static HardwareSerial actual;
-    if (HardwareSerial::serial1_initialized_callback) {
-        HardwareSerial::serial1_initialized_callback(actual);
-    }
-    return actual;
-};
-HardwareSerial Serial = getSerial();
+HardwareSerial Serial;
