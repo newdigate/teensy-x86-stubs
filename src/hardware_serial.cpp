@@ -159,7 +159,10 @@ size_t HardwareSerial::write(uint8_t a) {
 }
 size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
     auto value2 = reinterpret_cast<const char *>(value);
+
+#ifdef REDIRECT_SERIAL_OUT_TO_STD_OUT
     std::cout.write(value2, count);
+#endif
 
     for(auto & callback: callbacks) {
         if (callback) {
