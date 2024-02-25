@@ -4,6 +4,7 @@ set(teensy_x86_stubs_VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 
 option(BUILD_SHARED_LIBRARY "BUILD_SHARED_LIBRARY" OFF)
+option(REDIRECT_SERIAL_OUT_TO_STD_OUT "REDIRECT_SERIAL_OUT_TO_STD_OUT" ON)
 
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/")
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs" )
@@ -43,6 +44,11 @@ set(HEADER_FILES
 		src/imxrt.h
 		src/arm_math.h
 		src/elapsedMillis.h)
+
+IF (REDIRECT_SERIAL_OUT_TO_STD_OUT)
+	add_compile_definitions(REDIRECT_SERIAL_OUT_TO_STD_OUT)
+ELSE ()
+ENDIF ()
 
 IF (NOT DEFINED BUILD_SHARED_LIBRARY)
 	add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
