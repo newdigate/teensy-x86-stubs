@@ -50,7 +50,7 @@ void __enable_irq();
 extern volatile bool arduino_should_exit;
 #include "hardware_serial.h"
 
-#ifdef BUILD_SHARED_LIBRARY
+#ifndef PREVENT_C_STYLE_LINKING
 void setup() asm("_setup");
 void loop() asm("_loop");
 #endif
