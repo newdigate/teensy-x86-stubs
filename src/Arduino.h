@@ -49,4 +49,9 @@ void __disable_irq();
 void __enable_irq();
 extern volatile bool arduino_should_exit;
 #include "hardware_serial.h"
+
+#ifdef BUILD_SHARED_LIBRARY
+void setup() asm("_setup");
+void loop() asm("_loop");
+#endif
 #endif
