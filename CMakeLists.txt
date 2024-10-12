@@ -44,38 +44,3 @@ set(HEADER_FILES
 		src/elapsedMillis.h)
 
 add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
-
-set_target_properties(teensy_x86_stubs PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
-
-include(CMakePackageConfigHelpers)
-configure_package_config_file(cmake/teensy_x86_stubs.cmake.in
-		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
-		INSTALL_DESTINATION ${LIB_INSTALL_DIR}/teensy_x86_stubs/cmake
-		PATH_VARS)
-
-write_basic_package_version_file(
-		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
-		VERSION ${teensy_x86_stubs_VERSION}
-		COMPATIBILITY SameMajorVersion )
-
-install(TARGETS teensy_x86_stubs DESTINATION
-		LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-		ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-		PUBLIC_HEADER DESTINATION "include/teensy_x86_stubs"
-		)
-
-install(FILES
-		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfig.cmake
-		${CMAKE_CURRENT_BINARY_DIR}/teensy_x86_stubsConfigVersion.cmake
-		cmake/uninstall.cmake
-		DESTINATION "lib/cmake/teensy_x86_stubs" )
-
-##
-# copied from: https://gist.github.com/royvandam/3033428
-# Add uninstall target
-# Requirements: Copy the uninstall.cmake file to the appropriate CMAKE_MODULE_PATH.
-#
-
-add_custom_target(uninstall
-		"${CMAKE_COMMAND}" -P "../cmake/uninstall.cmake"
-		)
