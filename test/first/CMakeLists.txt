@@ -18,6 +18,7 @@ add_executable(basic
         ../../src/Printable.h
         ../../src/pins_arduino.h
         ../../src/IntervalTimer.cpp
+        ../../src/EventResponder.cpp
         first.cpp
         )
 
