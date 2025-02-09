@@ -28,6 +28,11 @@ long map(long, long, long, long, long);
 #define interrupts()
 #define noInterrupts()
 
+#define extmem_malloc(n) malloc(n)
+#define extmem_free(n) free(n)
+
+#define NVIC_IS_ENABLED(x) false
+
 void initialize_mock_arduino();
 
 typedef void (*myyieldfn)();
@@ -48,5 +53,10 @@ extern myyieldfn yield_impl;
 void __disable_irq();
 void __enable_irq();
 extern volatile bool arduino_should_exit;
+
+extern uint8_t yield_active_check_flags;
+#define YIELD_CHECK_EVENT_RESPONDER 0x01
+extern void EventResponder_runFromYield(void);
+
 #include "hardware_serial.h"
 #endif
