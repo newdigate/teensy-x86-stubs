@@ -104,23 +104,10 @@ public:
 		_type = EventTypeImmediate;
 		enableInterrupts(irq);
 	}
-#if !defined(BUILD_FOR_LINUX)
+
 	// Attach a function to be called from a low priority interrupt.
-	// Boards not supporting software triggered interrupts will implement
-	// this as attachImmediate.  On ARM and other platforms with software
-	// interrupts, this allow fast interrupt-based response, but with less
-	// disruption to other libraries requiring their own interrupts.
-	void attachInterrupt(EventResponderFunction function, uint8_t priority __attribute__((unused)) = 128) {
-		bool irq = disableInterrupts();
-		detachNoInterrupts();
-		_function = function;
-		_type = EventTypeInterrupt;
-		SCB_SHPR3 |= 0x00FF0000; // configure PendSV, lowest priority
-		// Make sure we are using the systic ISR that process this
-		_VectorsRam[15] = systick_isr_with_timer_events;
-		enableInterrupts(irq);
-	}
-#endif // !defined(BUILD_FOR_LINUX)
+	// DELETED for stubs
+	// void attachInterrupt(EventResponderFunction function, uint8_t priority __attribute__((unused)) = 128) {
 
 	// Attach a function to be called as its own thread.  Boards not running
 	// a RTOS or pre-emptive scheduler shall implement this as attach().
@@ -176,14 +163,8 @@ public:
 	bool waitForEvent(EventResponderRef event, int timeout);
 	EventResponder * waitForEvent(EventResponder *list, int listsize, int timeout);
 	static void runFromYield() {
-		if (!firstYield) return;  
-#if !defined(BUILD_FOR_LINUX)
-		// First, check if yield was called from an interrupt
-		// never call normal handler functions from any interrupt context
-		uint32_t ipsr;
-		__asm__ volatile("mrs %0, ipsr\n" : "=r" (ipsr)::);
-		if (ipsr != 0) return;
-#endif // !defined(BUILD_FOR_LINUX)
+		if (!firstYield) return;
+		
 		// Next, check if any events have been triggered
 		bool irq = disableInterrupts();
 		EventResponder *first = firstYield;
@@ -231,61 +212,12 @@ protected:
 	static bool runningFromYield;
 private:
 	static bool disableInterrupts() {
-#if !defined(BUILD_FOR_LINUX)
-		uint32_t primask;
-		__asm__ volatile("mrs %0, primask\n" : "=r" (primask)::);
-		__disable_irq();
-		return (primask == 0) ? true : false;
-#else
 	return false;		
-#endif // !defined(BUILD_FOR_LINUX)
 	}
 	static void enableInterrupts(bool doit) {
 		if (doit) __enable_irq();
 	}
 };
 
-class MillisTimer
-{
-public:
-	constexpr MillisTimer() {
-	}
-	~MillisTimer() {
-		end();
-	}
-	void begin(unsigned long milliseconds, EventResponderRef event);
-	void beginRepeating(unsigned long milliseconds, EventResponderRef event);
-	void end();
-	static void runFromTimer();
-private:
-	void addToWaitingList();
-	void addToActiveList();
-	unsigned long _ms = 0;
-	unsigned long _reload = 0;
-	MillisTimer *_next = nullptr;
-	MillisTimer *_prev = nullptr;
-	EventResponder *_event = nullptr;
-	enum TimerStateType {
-		TimerOff = 0,
-		TimerWaiting,
-		TimerActive
-	};
-	volatile TimerStateType _state = TimerOff;
-	static MillisTimer *listWaiting; // single linked list of waiting to start timers
-	static MillisTimer *listActive;  // double linked list of running timers
-	static bool disableTimerInterrupt() {
-#if !defined(BUILD_FOR_LINUX)
-		uint32_t primask;
-		__asm__ volatile("mrs %0, primask\n" : "=r" (primask)::);
-		__disable_irq();
-		return (primask == 0) ? true : false;
-#else
-		return false;
-#endif // !defined(BUILD_FOR_LINUX)
-	}
-	static void enableTimerInterrupt(bool doit) {
-		if (doit) __enable_irq();
-	}
-};
 
 #endif

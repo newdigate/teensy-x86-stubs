@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include/teensy_x86_stubs/")
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/teensy_x86_stubs" )
 
-add_compile_definitions(BUILD_FOR_LINUX)
 add_compile_definitions(__IMXRT1062__)
 add_compile_definitions(ARDUINO_TEENSY41)
 add_compile_definitions(ARDUINO=158)

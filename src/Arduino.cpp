@@ -15,10 +15,6 @@ bool has_initialized_mock_arduino = false;
 using namespace std::chrono;
 uint8_t external_psram_size = 16;
 uint8_t yield_active_check_flags;
-extern "C" { 
-    volatile uint32_t systick_millis_count;
-    volatile uint32_t systick_cycle_count;
-}
 
 /// @brief reset the timer so when calling millis(), etc, you will get the time relative to the start of the program
 void initialize_mock_arduino() {
