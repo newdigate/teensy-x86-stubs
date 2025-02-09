@@ -14,6 +14,11 @@ unsigned tv_start_unsigned = 0;
 bool has_initialized_mock_arduino = false;
 using namespace std::chrono;
 uint8_t external_psram_size = 16;
+uint8_t yield_active_check_flags;
+extern "C" { 
+    volatile uint32_t systick_millis_count;
+    volatile uint32_t systick_cycle_count;
+}
 
 /// @brief reset the timer so when calling millis(), etc, you will get the time relative to the start of the program
 void initialize_mock_arduino() {
@@ -39,6 +44,8 @@ void yield()
     else 
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         //usleep(1000);
+    if (yield_active_check_flags & YIELD_CHECK_EVENT_RESPONDER)
+        EventResponder_runFromYield();
 }
 
 std::mutex critical_section_mutex;
