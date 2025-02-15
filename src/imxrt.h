@@ -9947,7 +9947,7 @@ These register are used by the ROM code and should not be used by application so
 #define NVIC_DISABLE_IRQ(n)     (*(&NVIC_ICER0 + ((n) >> 5)) = (1 << ((n) & 31)))
 #define NVIC_SET_PENDING(n)     (*((volatile uint32_t *)0xE000E200 + ((n) >> 5)) = (1 << ((n) & 31)))
 #define NVIC_CLEAR_PENDING(n)   (*((volatile uint32_t *)0xE000E280 + ((n) >> 5)) = (1 << ((n) & 31)))
-#define NVIC_IS_ENABLED(n)      (*(&NVIC_ISER0 + ((n) >> 5)) & (1 << ((n) & 31)))
+// #define NVIC_IS_ENABLED(n)      (*(&NVIC_ISER0 + ((n) >> 5)) & (1 << ((n) & 31)))
 #define NVIC_IS_PENDING(n)      (*((volatile uint32_t *)0xE000E200 + ((n) >> 5)) & (1 << ((n) & 31)))
 #define NVIC_IS_ACTIVE(n)       (*((volatile uint32_t *)0xE000E300 + ((n) >> 5)) & (1 << ((n) & 31)))
 #define NVIC_TRIGGER_IRQ(n)     NVIC_STIR=(n)

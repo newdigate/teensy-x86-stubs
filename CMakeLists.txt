@@ -16,6 +16,7 @@ set(SOURCE_FILES
         src/core_pins.cpp
 		src/IntervalTimer.cpp
 		src/AudioStream.cpp
+		src/EventResponder.cpp
 		src/digital.cpp
 		src/arm_math.cpp)
 
@@ -35,6 +36,7 @@ set(HEADER_FILES
 		src/AudioStream.h
         src/core_pins.h
 		src/IntervalTimer.h
+		src/EventResponder.h
 		src/teensy_main.h
 		src/imxrt.h
 		src/arm_math.h
