@@ -4,7 +4,7 @@
 [![CMake](https://github.com/newdigate/teensy-x86-stubs/workflows/CMake/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions)
 [![basic-test](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/basic-test.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/basic-test.yml)
 
-installable cmake package with stub classes to allow basic teensy code and libraries to be compiled and debugged on your x86/x64 architecture
+stub classes implementing basic arduino/teensy functions for compiling and debuging on your x86/x64 architecture
 
 * [eco-system](#eco-system)
 * [quick example](#quick-example)
