@@ -1,25 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(basic_test C CXX)
 set(CMAKE_CXX_STANDARD 17)
+include(../cmake_declare_and_fetch.cmake.in)
+DeclareAndFetch(teensy_x86_stubs https://github.com/newdigate/teensy-x86-stubs.git main src)
 
-add_executable(basic
-        ../../src/Arduino.h
-        ../../src/Arduino.cpp
-        ../../src/hardware_serial.h
-        ../../src/hardware_serial.cpp
-        ../../src/core_pins.h
-        ../../src/core_pins.cpp
-        ../../src/Stream.cpp
-        ../../src/Stream.h
-        ../../src/WString.cpp
-        ../../src/WString.h
-        ../../src/Print.cpp
-        ../../src/Print.h
-        ../../src/Printable.h
-        ../../src/pins_arduino.h
-        ../../src/IntervalTimer.cpp
-        ../../src/EventResponder.cpp
-        first.cpp
-        )
-
-set(CMAKE_VERBOSE_MAKEFILE 1)
+add_executable(basic first.cpp)
+target_link_libraries(basic teensy_x86_stubs)
