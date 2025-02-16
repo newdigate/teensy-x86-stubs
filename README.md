@@ -26,22 +26,13 @@ stub classes implementing basic arduino/teensy functions for compiling and debug
     initialize_mock_arduino()
 ```
 
-##### CMakelists.txt reference
+## CMakelists.txt reference
+* using macro from [cmake-declare-and-fetch](https://github.com/newdigate/cmake-declare-and-fetch)
+  
 ``` cmake
 project(thing C CXX)
-
-include(FetchContent)
-FetchContent_Declare(cmake_declare_and_fetch
-        GIT_REPOSITORY https://github.com/newdigate/cmake-declare-and-fetch.git
-        GIT_TAG        main
-)
-FetchContent_MakeAvailable(cmake_declare_and_fetch)
-include("${FETCHCONTENT_BASE_DIR}/cmake_declare_and_fetch-src/DeclareAndFetchCMake.in")
-
 DeclareAndFetch(teensy_x86_stubs https://github.com/newdigate/teensy-x86-stubs.git main src)
-
 add_executable(thing main.cpp)
-
 target_link_libraries(thing teensy_x86_stubs)
 ```
 
