@@ -48,6 +48,7 @@ int main(int argc, char **argv){
   
 ``` cmake
 project(thing C CXX)
+include(cmake_declare_and_fetch.cmake.in)
 DeclareAndFetch(teensy_x86_stubs https://github.com/newdigate/teensy-x86-stubs.git main src)
 add_executable(thing main.cpp)
 target_link_libraries(thing teensy_x86_stubs)
