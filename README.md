@@ -21,12 +21,7 @@ stub classes implementing basic arduino/teensy functions for compiling and debug
 
 
 ## quick example
-* to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
-``` c++
-    initialize_mock_arduino()
-```
-
-## main.cpp
+### main.cpp
 ```c++
 #include <Arduino.h>
 IntervalTimer myTimer;
@@ -62,6 +57,12 @@ mkdir cmake-build-debug
 cd cmake-build-debug
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake --build .
+```
+
+## timing emlation
+* to initialize the arduino timing library so that millis() will return the duration in milliseconds since the test app has been runnning
+``` c++
+    initialize_mock_arduino()
 ```
 
 ## credits
