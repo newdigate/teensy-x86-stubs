@@ -6,16 +6,6 @@
 
 stub classes implementing basic arduino/teensy functions for compiling and debuging on your x86/x64 architecture
 
-* [eco-system](#eco-system)
-* [quick example](#quick-example)
-  * [main.cpp](#maincpp)
-  * [output](#output)
-  * [CMakelists.txt](#cmakeliststxt)
-* [package installation](#package-installation)
-* [uninstall](#uninstall)
-* [credits](#credits)
-* [license](#license)
-
 ## eco-system
 [sd](https://github.com/newdigate/teensy-x86-sd-stubs)
 |
