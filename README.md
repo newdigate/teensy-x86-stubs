@@ -35,40 +35,6 @@ stub classes implementing basic arduino/teensy functions for compiling and debug
 ``` c++
     initialize_mock_arduino()
 ```
-* To test teensy code accessing an SD card file, you'll need to install [teensy-x86-sd-stubs](https://github.com/newdigate/teensy-x86-sd-stubs)
-``` c++ 
-    char *buffer = "blah blah blah blah blah";
-    SD.setSDCardFileData(buffer, strlen(buffer));
-```
-
-##### main.cpp
-``` c++
-#include <Arduino.h>
-#include <SD.h>
-
-using namespace std;
-
-int main(int argc, char **argv){
-    std::cout << "starting app...\n";
-    initialize_mock_arduino();
-
-    char *buffer = "blah blah blah blah blah";
-    SD.setSDCardFileData(buffer, strlen(buffer));
-
-    File f = SD.open("abcdefg.123");
-
-    char *output = new char[1000];
-    int bytesRead = f.read(output, 1000);
-
-    std::cout << bytesRead << " bytes read: \n" << output;
-}
-```
-##### output
-```
-starting app...
-24 bytes read: 
-blah blah blah blah blah
-```
 
 ##### CMakelists.txt
 ``` cmake
@@ -82,20 +48,14 @@ add_executable(thing main.cpp)
 target_link_libraries(thing ${teensy_x86_stubs_LIBS})
 ```
 
-
-## package installation:
+## build instructions:
 ``` sh
 git clone https://github.com/newdigate/teensy-x86-stubs.git
 cd teensy-x86-stubs
 mkdir cmake-build-debug
 cd cmake-build-debug
-cmake ..
-sudo make install
-```
-
-## uninstall:
-``` sh
-sudo make uninstall
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake --build .
 ```
 
 ## credits
