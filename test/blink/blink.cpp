@@ -1,6 +1,4 @@
-#include "../../src/Arduino.h"
-#include "../../src/IntervalTimer.h"
-//#include <Arduino.h>
+#include <Arduino.h>
 IntervalTimer myTimer;
 
 void blinkLED() {

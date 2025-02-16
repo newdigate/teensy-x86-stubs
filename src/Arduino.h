@@ -3,6 +3,7 @@
 #include <cinttypes>
 #include "core_pins.h"
 #include "pins_arduino.h"
+#include "IntervalTimer.h"
 uint32_t millis(void);
 unsigned long micros();
 #include "elapsedMillis.h"

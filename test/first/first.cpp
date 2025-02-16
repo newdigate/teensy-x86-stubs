@@ -1,4 +1,4 @@
-#include "../../src/Arduino.h"
+#include <Arduino.h>
 
 int main() {
     initialize_mock_arduino();
