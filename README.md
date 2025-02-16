@@ -26,6 +26,23 @@ stub classes implementing basic arduino/teensy functions for compiling and debug
     initialize_mock_arduino()
 ```
 
+## main.cpp
+```c++
+#include <Arduino.h>
+IntervalTimer myTimer;
+
+void blinkLED() {
+    Serial.printf("BLINK %d\n", 1000);
+}
+
+int main(int argc, char **argv){
+    initialize_mock_arduino();
+
+    myTimer.begin(blinkLED, 250000);
+    delay(1000000);
+}
+```
+
 ## CMakelists.txt reference
 * using macro from [cmake-declare-and-fetch](https://github.com/newdigate/cmake-declare-and-fetch)
   
