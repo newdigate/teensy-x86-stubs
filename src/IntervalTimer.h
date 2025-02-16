@@ -38,6 +38,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <functional>
+#include <cstring>
 // IntervalTimer provides access to hardware timers which can run an
 // interrupt function a precise timing intervals.
 // https://www.pjrc.com/teensy/td_timing_IntervalTimer.html
