@@ -33,7 +33,7 @@ jobs:
       run: cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
     - name: Build
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}/test/first/build
       shell: bash
       # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
