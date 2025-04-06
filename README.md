@@ -1,8 +1,8 @@
 # teensy x86 stubs
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CMake](https://img.shields.io/badge/project-CMake-brightgreen.svg?label=built%20with&colorA=555555&colorB=8a8fff&logo=)](CMakelists.txt)
-[![CMake](https://github.com/newdigate/teensy-x86-stubs/workflows/CMake/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions)
-[![basic-test](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/basic-test.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/basic-test.yml)
+[![blink](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/blink.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/blink.yml)
+[![first](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/first.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/first.yml)
+[![root](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/root.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/root.yml)
 
 stub classes implementing basic arduino/teensy functions for compiling and debuging on your x86/x64 architecture
 
