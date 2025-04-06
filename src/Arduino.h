@@ -51,6 +51,9 @@ extern myyieldfn yield_impl;
 #define TWO_PI 6.283185307179586476925286766559
 #endif
 
+void setup() asm("_setup");
+void loop() asm("_loop");
+
 void __disable_irq();
 void __enable_irq();
 extern volatile bool arduino_should_exit;
