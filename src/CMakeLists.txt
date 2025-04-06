@@ -3,7 +3,7 @@ project(teensy_x86_stubs C CXX)
 set(teensy_x86_stubs_VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
-
+option(BUILD_DYNAMIC_LIBRARY Off)
 add_compile_definitions(__IMXRT1062__)
 add_compile_definitions(ARDUINO_TEENSY41)
 add_compile_definitions(ARDUINO=158)
@@ -42,4 +42,8 @@ set(HEADER_FILES
 		arm_math.h
 		elapsedMillis.h)
 
-add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
+if (BUILD_DYNAMIC_LIBRARY)
+	add_library(teensy_x86_stubs SHARED ${HEADER_FILES} ${SOURCE_FILES})
+else ()
+	add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
+endif ()
