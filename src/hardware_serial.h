@@ -75,8 +75,6 @@ public:
         return write((const unsigned char*)buffer, strlen(buffer));
     }
 
-    static void (*serial1_initialized_callback)(HardwareSerial &s);
-
 private:
 #ifndef _MSC_VER
     termios t;
