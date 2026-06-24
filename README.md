@@ -3,6 +3,7 @@
 [![blink](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/blink.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/blink.yml)
 [![first](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/first.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/first.yml)
 [![root](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/root.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/root.yml)
+[![bugs](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/bugs.yml/badge.svg)](https://github.com/newdigate/teensy-x86-stubs/actions/workflows/bugs.yml)
 
 stub classes implementing basic arduino/teensy functions for compiling and debugging on your x86/x64 architecture (Linux, macOS, Windows/MSVC)
 
