@@ -86,13 +86,11 @@ void _restart_Teensyduino_(void) __attribute__((noreturn));
 
 void yield(void);
 
-#ifdef _MSC_VER
-time_t t_start = 0;
-unsigned tv_start_unsigned = 0;
-#else
-extern time_t t_start;
+// Defined in Arduino.cpp. The types must match that definition exactly:
+// declaring t_start as time_t here (8 bytes) while it is defined as unsigned
+// (4 bytes) is undefined behaviour and corrupts millis().
+extern unsigned t_start;
 extern unsigned tv_start_unsigned;
-#endif // _MSC_VER
 
 
 using namespace std::chrono;
@@ -127,7 +125,7 @@ void delayMicroseconds(uint32_t usec)
 }
 
 unsigned long nanos() {
-    unsigned long time_in_nanos = 1000 * (micros() - tv_start_unsigned);
+    unsigned long time_in_nanos = 1000 * micros();
     return time_in_nanos;
 }
 
