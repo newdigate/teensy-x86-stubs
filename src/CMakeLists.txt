@@ -47,3 +47,8 @@ if (BUILD_DYNAMIC_LIBRARY)
 else ()
 	add_library(teensy_x86_stubs SHARED STATIC ${HEADER_FILES} ${SOURCE_FILES})
 endif ()
+
+# IntervalTimer runs each timer on its own std::thread, so consumers must link
+# a threads library. Propagate it publicly so anything linking this lib gets it.
+find_package(Threads REQUIRED)
+target_link_libraries(teensy_x86_stubs PUBLIC Threads::Threads)

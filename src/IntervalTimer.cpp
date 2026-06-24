@@ -30,24 +30,58 @@
 
 #include "IntervalTimer.h"
 
-std::function<void()> IntervalTimer::handler = NULL;
+std::atomic<int> IntervalTimer::s_activeCount{0};
 
-void timer_handler (int signum){
-    IntervalTimer::callhandler();
-    //printf("dfsdfsdf\n");
+bool IntervalTimer::beginMicros(callback_t funct, uint32_t microseconds)
+{
+    if (funct == nullptr) return false;
+    if (microseconds == 0 || microseconds > MAX_PERIOD) return false;
+
+    // Restart cleanly if this instance was already running (frees its slot).
+    end();
+
+    // Claim one of the limited timer slots, matching the Teensy's 4 PIT
+    // channels: once all are in use, begin() fails just like on hardware.
+    int cur = s_activeCount.load();
+    do {
+        if (cur >= MAX_TIMERS) return false;
+    } while (!s_activeCount.compare_exchange_weak(cur, cur + 1));
+
+    _func = funct;
+    _period_us.store(microseconds);
+    _active.store(true);
+    _thread = std::thread(&IntervalTimer::run, this);
+    return true;
 }
 
-bool IntervalTimer::beginCycles(callback_t funct, uint32_t cycles)
+void IntervalTimer::run()
 {
-    IntervalTimer::handler = funct;
-	s_action.sa_handler = &timer_handler;
-    sigaction (SIGALRM, &s_action, NULL);
+    using namespace std::chrono;
+    auto next = steady_clock::now();
+    while (_active.load()) {
+        // Schedule the next tick before sleeping so update() takes effect on
+        // the following interval (the in-progress interval completes as set).
+        next += microseconds(_period_us.load());
+        std::this_thread::sleep_until(next);
+        if (!_active.load()) break;
+        callback_t f = _func;
+        if (f) f();
+    }
+}
 
-    timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = cycles;
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = cycles;
-    setitimer (ITIMER_REAL, &timer, NULL);
-
-	return true;
+void IntervalTimer::end()
+{
+    bool was_active = _active.exchange(false);
+    if (_thread.joinable()) {
+        if (std::this_thread::get_id() == _thread.get_id()) {
+            // Called from within the callback itself: can't join our own
+            // thread, so let it finish and detach.
+            _thread.detach();
+        } else {
+            _thread.join();
+        }
+    }
+    if (was_active) {
+        s_activeCount.fetch_sub(1);
+    }
 }

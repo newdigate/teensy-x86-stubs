@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
+#include <atomic>
 
 static int g_failures = 0;
 static int g_total = 0;
@@ -106,6 +107,45 @@ static void test_available_count() {
     drain();
 }
 
+// IntervalTimer: the host emulation must support multiple concurrent timers
+// (Teensy 4.x exposes 4 PIT channels), not just a single shared one.
+static std::atomic<int> g_tick1{0}, g_tick2{0}, g_tick3{0}, g_tick4{0};
+static void cb1() { ++g_tick1; }
+static void cb2() { ++g_tick2; }
+static void cb3() { ++g_tick3; }
+static void cb4() { ++g_tick4; }
+
+static void test_interval_timer_multiple() {
+    std::printf("IntervalTimer  multiple concurrent timers (Teensy parity)\n");
+    g_tick1 = g_tick2 = g_tick3 = g_tick4 = 0;
+
+    IntervalTimer t1, t2, t3, t4, t5;
+    bool b1 = t1.begin(cb1, 10000);   // 10 ms period
+    bool b2 = t2.begin(cb2, 10000);
+    bool b3 = t3.begin(cb3, 10000);
+    bool b4 = t4.begin(cb4, 10000);
+    bool b5 = t5.begin(cb1, 10000);   // 5th must fail: only 4 channels
+    CHECK(b1 && b2 && b3 && b4, "four IntervalTimers start concurrently");
+    CHECK(!b5, "a fifth IntervalTimer is refused (max 4, like Teensy)");
+
+    delay(120);                       // ~12 ticks per timer
+    int s1 = g_tick1.load();
+    t1.end();
+    t2.end();
+    t3.end();
+    t4.end();
+    CHECK(g_tick1 > 0 && g_tick2 > 0 && g_tick3 > 0 && g_tick4 > 0,
+          "all four timer callbacks fired (timers ran in parallel)");
+
+    delay(50);
+    CHECK(g_tick1.load() == s1 || g_tick1.load() == s1 + 1,
+          "end() stops the timer (no further ticks beyond the in-flight one)");
+
+    bool b6 = t5.begin(cb2, 10000);
+    CHECK(b6, "a timer slot frees up after end()");
+    t5.end();
+}
+
 int main() {
     initialize_mock_arduino();
 
@@ -115,6 +155,7 @@ int main() {
     test_readstringuntil_max_cap();
     test_write_return_value();
     test_available_count();
+    test_interval_timer_multiple();
 
     std::printf("\n%d/%d checks passed, %d failed\n",
                 g_total - g_failures, g_total, g_failures);

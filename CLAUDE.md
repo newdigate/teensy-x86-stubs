@@ -56,8 +56,10 @@ simply runs the three CMake builds above on every push.
   by `initialize_mock_arduino()` (`Arduino.cpp`), which captures the start epoch so timers read
   as "since program start". **Sketches must call `initialize_mock_arduino()` at the top of
   `main()`** or timing values are absolute epoch values.
-- **`IntervalTimer`** (`IntervalTimer.cpp`) is implemented with POSIX `setitimer(ITIMER_REAL)` +
-  a `SIGALRM` handler — a single static handler, so it effectively supports one active timer.
+- **`IntervalTimer`** (`IntervalTimer.cpp`) runs each active timer on its own `std::thread`,
+  with a static slot counter capped at 4 (matching the Teensy 4.x PIT channels) — `begin()`
+  returns false once all 4 are in use. Because it uses `std::thread`, `src/CMakeLists.txt` links
+  `Threads::Threads` as a PUBLIC dependency so consumers link pthread transitively.
 - **Concurrency / interrupts.** There is no ISR model. `__disable_irq`/`__enable_irq`
   (`Arduino.cpp`) are a `std::mutex` critical section guarded by the global
   `arduino_should_exit` flag. `yield()` sleeps and optionally drives the `EventResponder` (via
