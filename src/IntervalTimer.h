@@ -33,28 +33,35 @@
 #define __INTERVALTIMER_H__
 
 #include <stddef.h>
-#include "Arduino.h"
-#include <signal.h>
-#include <time.h>
-#include <sys/time.h>
-#include <functional>
-#include <cstring>
+#include <cstdint>
+#include <atomic>
+#include <thread>
+#include <chrono>
 // IntervalTimer provides access to hardware timers which can run an
 // interrupt function a precise timing intervals.
 // https://www.pjrc.com/teensy/td_timing_IntervalTimer.html
 // Up to 4 IntervalTimers may be in use simultaneously.  Many
 // libraries use IntervalTimer, so some of these 4 possible
 // instances may be in use by libraries.
+//
+// On the host this is emulated with one std::thread per active timer: the
+// callback runs on its own thread at the requested period. Up to MAX_TIMERS
+// (4, matching the Teensy 4.x PIT channels) may run at once; begin() returns
+// false once they are all in use.
 class IntervalTimer {
 private:
-	static const int32_t MAX_PERIOD = UINT32_MAX / (24000000 / 1000000); // need to change to int32_t to avoid warnings
+	static const uint32_t MAX_PERIOD = UINT32_MAX / (24000000 / 1000000);
+	static const int MAX_TIMERS = 4;       // Teensy 4.x exposes 4 PIT channels
+	static std::atomic<int> s_activeCount;  // number of timers currently running
 public:
-	IntervalTimer() {
-        memset (&s_action, 0, sizeof (s_action));
-	}
+	IntervalTimer() {}
 	~IntervalTimer() {
 		end();
 	}
+	// IntervalTimer owns a thread and atomics, so it is not copyable/movable.
+	IntervalTimer(const IntervalTimer&) = delete;
+	IntervalTimer& operator=(const IntervalTimer&) = delete;
+
 	using callback_t = void (*)(void);
 	// Start the hardware timer and begin calling the function.  The
 	// interval is specified in microseconds, using integer or float
@@ -62,36 +69,27 @@ public:
 	// all hardware timers are already in use.
 	template <typename period_t>
 	bool begin(callback_t funct, period_t period) {
-		uint32_t cycles = period;
-		return beginCycles(funct, cycles);
+		uint32_t microseconds = (uint32_t)period;
+		return beginMicros(funct, microseconds);
 	}
 	// Change the timer's interval.  The current interval is completed
 	// as previously configured, and then the next interval begins with
 	// with this new setting.
 	void update(unsigned int microseconds) {
 		if (microseconds == 0 || microseconds > MAX_PERIOD) return;
-        timer.it_interval.tv_usec = microseconds;
-        setitimer (ITIMER_REAL, &timer, NULL);
+		_period_us.store(microseconds);
 	}
 	// Change the timer's interval.  The current interval is completed
 	// as previously configured, and then the next interval begins with
 	// with this new setting.
 	template <typename period_t>
-	void update(period_t period){
-		uint32_t micros = microsFromPeriod(period);
-        timer.it_value.tv_sec = 0;
-        timer.it_value.tv_usec = micros;
-        timer.it_interval.tv_sec = 0;
-        timer.it_interval.tv_usec = micros;
-        setitimer (ITIMER_REAL, &timer, NULL);
-    }
+	void update(period_t period) {
+		update((unsigned int)period);
+	}
 
 	// Stop calling the function. The hardware timer resource becomes available
 	// for use by other IntervalTimer instances.
-	void end() {
-        timer.it_interval.tv_usec = 0;
-        setitimer (ITIMER_REAL, &timer, NULL);
-    }
+	void end();
 	// Set the interrupt priority level, controlling which other interrupts this
 	// timer is allowed to interrupt. Lower numbers are higher priority, with 0
 	// the highest and 255 the lowest. Most other interrupts default to 128. As
@@ -100,16 +98,14 @@ public:
 	void priority(uint8_t n) {
 	}
 
-    static std::function<void()> handler;
-    static void callhandler() {
-        if (handler != nullptr)
-            handler();
-    }
-	
 private:
-    struct sigaction s_action;
-    struct itimerval timer;
-	bool beginCycles(callback_t funct, uint32_t cycles);
+	bool beginMicros(callback_t funct, uint32_t microseconds);
+	void run();
+
+	callback_t _func = nullptr;
+	std::atomic<uint32_t> _period_us{0};
+	std::atomic<bool> _active{false};
+	std::thread _thread;
 };
 
 #endif //__INTERVALTIMER_H__
