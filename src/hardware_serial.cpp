@@ -81,7 +81,7 @@ void HardwareSerial::end() {
 }
 
 int HardwareSerial::available(void) {
-    return !input.empty() || kbhit();
+    return static_cast<int>(input.size()) + kbhit();
 }
 
 void HardwareSerial::begin(unsigned long, uint8_t) {
@@ -89,6 +89,8 @@ void HardwareSerial::begin(unsigned long, uint8_t) {
 }
 
 int HardwareSerial::peek(void) {
+  if (!input.empty())
+    return input.front();
   return std::cin.peek();
 }
 
@@ -155,7 +157,7 @@ size_t HardwareSerial::write(uint8_t a) {
             callback(&c, 1);
         }
     }
-    return 0;
+    return 1;
 }
 size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
     auto value2 = reinterpret_cast<const char *>(value);
@@ -166,7 +168,7 @@ size_t HardwareSerial::write(unsigned char const* value, unsigned long count) {
             callback(value2, count);
         }
     }
-    return 0;
+    return count;
 }
 
 HardwareSerial Serial;
